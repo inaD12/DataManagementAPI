@@ -1,0 +1,15 @@
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\bin\Debug\net7.0\DataManagement.Application.deps.json
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\bin\Debug\net7.0\DataManagement.Application.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\bin\Debug\net7.0\DataManagement.Application.pdb
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\bin\Debug\net7.0\DataManagement.Domain.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\bin\Debug\net7.0\DataManagement.Domain.pdb
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.csproj.AssemblyReference.cache
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.AssemblyInfoInputs.cache
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.AssemblyInfo.cs
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.csproj.CoreCompileInputs.cache
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.csproj.CopyComplete
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\refint\DataManagement.Application.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\DataManagement.Application.pdb
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\DataManagement.Application\obj\Debug\net7.0\ref\DataManagement.Application.dll
