@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Vr82TYPSfTZ6Si+qNPFXQZDiDQ/HIN/bjx+txBnQm3Xx/qNdLg4nbkuisaCt266YkMeBIPtw4DxmBUEN2dOvyw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Capit\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
