@@ -1,10 +1,9 @@
 ﻿using DataManagement.Domain.DTOs;
-using DataManagement.Domain.Entities.Base;
+using DataManagement.Infrastructure.Repositories;
 
 namespace DataManagement.Application.Abstractions
 {
-	public interface ICountryRepository
+	public interface ICountryRepository : IRepository<Country>
 	{
-		Task SoftDeleteByNameAsync(string Name);
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace DataManagement.Infrastructure.Repositories
 {
-	internal interface IRepositoryHelper
+	public interface IRepositoryHelper
 	{
 		string GetColumnsForTable(string _tableName);
 		string GetPropertyNamesForTable(string _tableName);

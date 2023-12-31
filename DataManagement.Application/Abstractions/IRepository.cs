@@ -2,7 +2,7 @@
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal interface IRepository<TEntity> where TEntity : IBaseEntity
+	public interface IRepository<TEntity> where TEntity : IBaseEntity
 	{
 		Task<TEntity?> GetByNameAsync(string Name);
 		Task SoftDeleteByNameAsync(string Name);

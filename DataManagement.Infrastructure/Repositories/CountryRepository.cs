@@ -4,7 +4,7 @@ using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal class CountryRepository : Repository<Country>, ICountryRepository, IRepository<Country>
+	internal class CountryRepository : Repository<Country>, ICountryRepository
 	{
 
 		public CountryRepository(ISqlConnectionFactory connectionFactory, IRepositoryHelper repositoryHelper)
