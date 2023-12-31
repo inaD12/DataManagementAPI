@@ -1,6 +1,5 @@
 ﻿using DataManagement.Application.Abstractions;
 using DataManagement.Domain.DTOs;
-using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
@@ -12,11 +11,11 @@ namespace DataManagement.Infrastructure.Repositories
 		{
 		}
 
-		public override async Task SoftDeleteByNameAsync(string Name)
+		public override async Task<bool> SoftDeleteByNameAsync(string Name)
 		{
 			//await base.UpdateAsync(); TODO
 
-			await base.SoftDeleteByNameAsync(Name);
+			return await base.SoftDeleteByNameAsync(Name);
 		}
 	}
 }

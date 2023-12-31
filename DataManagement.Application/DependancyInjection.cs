@@ -14,6 +14,7 @@ namespace DataManagement.Application
 		public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
 		{
 			services.AddTransient<ICountryService, CountryService>();
+			services.AddTransient<IIndustryService, IndustryService>();
 
 			return services;
 		}

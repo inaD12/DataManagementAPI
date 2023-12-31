@@ -18,6 +18,7 @@ namespace DataManagement.Infrastructure
 			services.AddTransient<IRepositoryFactory, RepositoryFactory>();
 			services.AddTransient<IRepositoryHelper, RepositoryHelper>();
 			services.AddTransient<ICountryRepository, CountryRepository>();
+			services.AddTransient<IIndustryRepository, IndustryRepository>();
 
 
 			return services;

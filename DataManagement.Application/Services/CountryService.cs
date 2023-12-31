@@ -2,6 +2,7 @@
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
+using DataManagement.Domain.Errors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.Application.Services
@@ -17,11 +18,11 @@ namespace DataManagement.Application.Services
 
 		public async Task<IActionResult> GetCountryByNameAsync(string countryName)
 		{
-			Country res = await repository.GetByNameAsync(countryName);
+			Country? res = await repository.GetByNameAsync(countryName);
 
 			if (res is null)
 			{
-				return new NotFoundResult();
+				return new NotFoundObjectResult(CountryErrors.NotFound);
 			}
 
 			GetCountryResponseDTO dto = new GetCountryResponseDTO(res.Id, res.Name, (DateTime)res.CreatedAt);
@@ -38,16 +39,27 @@ namespace DataManagement.Application.Services
 
 			country.Set();
 
-			await repository.CreateAsync(country);
+			bool res = await repository.CreateAsync(country);
 
-			return new OkResult();
+			if(res)
+			{
+				return new OkResult();
+			}
+
+
+			return new BadRequestObjectResult(CountryErrors.CreationFailure);
 		}
 
 		public async Task<IActionResult> DeleteCountryAsync(string countryName)
 		{
-			await repository.SoftDeleteByNameAsync(countryName);
+			var res = await repository.SoftDeleteByNameAsync(countryName);
 
-			return new OkResult();
+			if (res)
+			{
+				return new OkResult();
+			}
+
+			return new BadRequestObjectResult(CountryErrors.DeleteUnsuccessful);
 		}
 
 		public async Task<IActionResult> UpdateCountryAsync(UpdateCountryRequestDTO dto)
@@ -58,9 +70,14 @@ namespace DataManagement.Application.Services
 				Name = dto.Name
 			};
 
-			await repository.UpdateAsync(country);
+			var res =  await repository.UpdateAsync(country);
 
-			return new OkResult();
+			if (res)
+			{
+				return new OkResult();
+			}
+
+			return new BadRequestObjectResult(CountryErrors.NotUpdated);
 		}
 	}
 }

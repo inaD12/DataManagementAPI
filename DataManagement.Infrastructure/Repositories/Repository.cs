@@ -35,20 +35,30 @@ namespace DataManagement.Infrastructure.Repositories
 			}
 		}
 
-		public virtual async Task SoftDeleteByNameAsync(string Name)
+		public virtual async Task<bool> SoftDeleteByNameAsync(string Name)
 		{
-			var currentTime = DateTime.Now;
-
-			await using (var sqlConnection = _connectionFactory.CreateConnection())
+			try
 			{
-				await sqlConnection.ExecuteAsync(
-					$"UPDATE {_tableName} SET DeletedAt = @CurrentTime WHERE DeletedAt IS NULL AND Name = @Name",
-					new { CurrentTime = currentTime, Name }
-				);
-			}
-		}	
+				var currentTime = DateTime.Now;
 
-		public async Task CreateAsync(TEntity entity)
+				await using (var sqlConnection = _connectionFactory.CreateConnection())
+				{
+					var rowsAffected = await sqlConnection.ExecuteAsync(
+						$"UPDATE {_tableName} SET DeletedAt = @CurrentTime WHERE DeletedAt IS NULL AND Name = @Name",
+						new { CurrentTime = currentTime, Name }
+					);
+
+					return rowsAffected > 0;
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error($"Error in Repository, SoftDeleteByNameAsync: {ex.Message}");
+				return false;
+			}
+		}
+
+		public async Task<bool> CreateAsync(TEntity entity)
 		{
 			try
 			{
@@ -59,17 +69,18 @@ namespace DataManagement.Infrastructure.Repositories
 
 				await using (var connection = _connectionFactory.CreateConnection())
 				{
-
-					await connection.ExecuteAsync(query, entity);
+					var rowsAffected = await connection.ExecuteAsync(query, entity);
+					return rowsAffected > 0;
 				}
 			}
 			catch (Exception ex)
 			{
 				Log.Error($"Error in Repository, CreateAsync: {ex.Message}");
+				return false;
 			}
 		}
 
-		public async Task UpdateAsync(TEntity entity)
+		public async Task<bool> UpdateAsync(TEntity entity)
 		{
 			try
 			{
@@ -87,12 +98,14 @@ namespace DataManagement.Infrastructure.Repositories
 
 				await using (var connection = _connectionFactory.CreateConnection())
 				{
-					await connection.ExecuteAsync(query, entity);
+					var rowsAffected = await connection.ExecuteAsync(query, entity);
+					return rowsAffected > 0;
 				}
 			}
 			catch (Exception ex)
 			{
 				Log.Error($"Error in Repository, UpdateAsync: {ex.Message}");
+				return false;
 			}
 		}
 	}
