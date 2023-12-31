@@ -15,6 +15,8 @@ namespace DataManagement.Infrastructure
 		public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
 		{
 			services.AddTransient<ISqlConnectionFactory, SqlConnectionFactory>();
+			services.AddTransient<IRepositoryFactory, RepositoryFactory>();
+			services.AddTransient<IRepositoryHelper, RepositoryHelper>();
 			services.AddTransient<ICountryRepository, CountryRepository>();
 
 

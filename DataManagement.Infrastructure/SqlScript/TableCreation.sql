@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Country](
     Id varchar(36) NOT NULL PRIMARY KEY,
-    CountryName varchar(60) NOT NULL UNIQUE,
+    Name varchar(60) NOT NULL UNIQUE,
     CreatedAt datetime NOT NULL,
     DeletedAt datetime NULL,
 );
@@ -20,7 +20,7 @@ CREATE TABLE [Organization](
 
 CREATE TABLE [Industry](
     Id varchar(36) NOT NULL PRIMARY KEY,
-    IndustryName varchar(300) NOT NULL UNIQUE,
+    Name varchar(300) NOT NULL UNIQUE,
     CreatedAt datetime NOT NULL,
     DeletedAt datetime NULL,
 );

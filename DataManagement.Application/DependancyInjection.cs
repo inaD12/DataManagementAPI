@@ -1,4 +1,5 @@
-﻿using DataManagement.Application.Services;
+﻿using DataManagement.Application.Abstractions;
+using DataManagement.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

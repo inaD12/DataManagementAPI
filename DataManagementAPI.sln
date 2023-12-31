@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{A2C510
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataManagementAPI", "DataManagementAPI", "{3517664D-27C6-4E8D-A264-7F65C2CCCC1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{90345469-5996-4E24-9CDC-3D7EBB4682AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{90345469-5996-4E24-9CDC-3D7EBB4682AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagement.Domain", "DataManagement.Domain\DataManagement.Domain.csproj", "{97B6C71B-4D20-47A9-BE7D-8BFBC40D8A6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManagement.Domain", "DataManagement.Domain\DataManagement.Domain.csproj", "{97B6C71B-4D20-47A9-BE7D-8BFBC40D8A6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagement.Infrastructure", "DataManagement.Infrastructure\DataManagement.Infrastructure.csproj", "{77946EC4-1E1E-4F8A-A014-3D236A41877C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManagement.Infrastructure", "DataManagement.Infrastructure\DataManagement.Infrastructure.csproj", "{77946EC4-1E1E-4F8A-A014-3D236A41877C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagement.Application", "DataManagement.Application\DataManagement.Application.csproj", "{F4DD1729-4E2D-449B-BDCB-96E0E5BA17A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManagement.Application", "DataManagement.Application\DataManagement.Application.csproj", "{F4DD1729-4E2D-449B-BDCB-96E0E5BA17A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

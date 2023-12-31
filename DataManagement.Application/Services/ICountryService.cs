@@ -8,6 +8,8 @@ namespace DataManagement.Application.Services
 	{
 		Task<IActionResult> GetCountryByNameAsync(string countryName);
 
-		Task<IActionResult> CreateCountryAsync(CreateCountryRequestDTo dto);
+		Task<IActionResult> CreateCountryAsync(CreateCountryRequestDTO dto);
+		Task<IActionResult> DeleteCountryAsync(string countryName);
+		Task<IActionResult> UpdateCountryAsync(UpdateCountryRequestDTO dto);
 	}
 }

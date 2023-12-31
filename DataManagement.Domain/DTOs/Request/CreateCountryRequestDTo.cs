@@ -1,4 +1,4 @@
 ﻿namespace DataManagement.Domain.DTOs.Request
 {
-	public record CreateCountryRequestDTo(string CountryName);
+	public record CreateCountryRequestDTO(string Name);
 }

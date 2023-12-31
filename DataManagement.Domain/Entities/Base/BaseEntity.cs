@@ -8,15 +8,13 @@ namespace DataManagement.Domain.Entities.Base
 {
 	public abstract class BaseEntity : IBaseEntity
 	{
-		public BaseEntity()
+		public void Set()
 		{
 			Id = Guid.NewGuid().ToString();
 			CreatedAt = DateTime.Now;
-			DeletedAt = null;
 		}
-
-		public string Id { get; set; }
-		public DateTime CreatedAt { get; set; }
-		public DateTime? DeletedAt { get; set;}
+		public string? Id { get; set; }
+		public DateTime? CreatedAt { get; set; }
+		public DateTime? DeletedAt { get; set; }
 	}
 }

@@ -23,19 +23,21 @@ namespace DataManagement.API.Controllers
 		}
 
 		[HttpPost("CreateCountry")]
-		public async Task<IActionResult> CreateCountry(CreateCountryRequestDTo dto)
+		public async Task<IActionResult> CreateCountry(CreateCountryRequestDTO dto)
 		{
 			return await _countryService.CreateCountryAsync(dto);
 		}
 
-		//[HttpPut("UpdateCountry")]
-		//public async Task<IActionResult> UpdateCountry()
-		//{
-		//}
+		[HttpPut("UpdateCountry")]
+		public async Task<IActionResult> UpdateCountry(UpdateCountryRequestDTO dto)
+		{
+			return await _countryService.UpdateCountryAsync(dto);
+		}
 
-		//[HttpDelete("DeleteCountry")]
-		//public async Task<IActionResult> DeleteCountry()
-		//{
-		//}
+		[HttpDelete("DeleteCountry/{countryName}")]
+		public async Task<IActionResult> DeleteCountry(string countryName)
+		{
+			return await _countryService.DeleteCountryAsync(countryName);
+		}
 	}
 }

@@ -2,8 +2,9 @@
 {
 	public interface IBaseEntity
 	{
-		DateTime CreatedAt { get; }
-		DateTime? DeletedAt { get; }
-		string Id { get; }
+		void Set();
+		DateTime? CreatedAt { get; set; }
+		DateTime? DeletedAt { get; set; }
+		string Id { get; set; }
 	}
 }

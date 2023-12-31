@@ -59,6 +59,18 @@
           }
         }
       },
+      "Dapper.SqlBuilder/2.0.78": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.0.78"
+        },
+        "compile": {
+          "lib/net5.0/Dapper.SqlBuilder.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/Dapper.SqlBuilder.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1589,10 +1601,12 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Dapper": "2.1.24",
+          "Dapper.SqlBuilder": "2.0.78",
           "DataManagement.Application": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.Data.SqlClient": "5.1.2",
-          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Serilog": "3.1.1"
         },
         "compile": {
           "bin/placeholder/DataManagement.Infrastructure.dll": {}
@@ -1661,6 +1675,20 @@
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml",
         "readme.md"
+      ]
+    },
+    "Dapper.SqlBuilder/2.0.78": {
+      "sha512": "07LHm+/YOLyFieN51mjwrrVPKX3q0k7RxG+8zi/5MKjy7mWid/DRlRFNgvcCffEcjLjkbgEdITHkKTKSxSmPnw==",
+      "type": "package",
+      "path": "dapper.sqlbuilder/2.0.78",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dapper.sqlbuilder.2.0.78.nupkg.sha512",
+        "dapper.sqlbuilder.nuspec",
+        "lib/net461/Dapper.SqlBuilder.dll",
+        "lib/net5.0/Dapper.SqlBuilder.dll",
+        "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
