@@ -1,11 +1,6 @@
-﻿using DataManagement.Application.Abstractions;
-using DataManagement.Application.Services;
+﻿using DataManagement.Application.Services;
+using DataManagement.Application.Services.IndustryOrganizationServices;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataManagement.Application
 {
@@ -15,6 +10,9 @@ namespace DataManagement.Application
 		{
 			services.AddTransient<ICountryService, CountryService>();
 			services.AddTransient<IIndustryService, IndustryService>();
+			services.AddTransient<IOrganizationService, OrganizationService>();
+			services.AddTransient<IIndustryOrganizationService, IndustryOrganizationService>();
+			services.AddTransient<IIndustryOrganizationHelper, IndustryOrganizationHelper>();
 
 			return services;
 		}

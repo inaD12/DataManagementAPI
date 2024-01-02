@@ -34,6 +34,9 @@ namespace DataManagement.Infrastructure.Repositories
 				case "Industry":
 					return DBTableProperties.Industry;
 
+				case "IndustryOrganization":
+					return DBTableProperties.IndustryOrganization;
+
 
 				default:
 					throw new NotSupportedException($"Table '{_tableName}' not supported.");

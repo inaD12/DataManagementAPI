@@ -5,5 +5,6 @@ namespace DataManagement.Application.Abstractions
 {
 	public interface IOrganizationRepository : IRepository<Organization>
 	{
+		Task<IEnumerable<Industry>> GetIndustriesByOrganizationIdAsync(string organizationId);
 	}
 }

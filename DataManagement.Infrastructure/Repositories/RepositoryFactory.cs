@@ -1,4 +1,5 @@
 ﻿using DataManagement.Application.Abstractions;
+using DataManagement.Domain.Abstractions;
 
 namespace DataManagement.Infrastructure.Repositories
 {
@@ -26,6 +27,11 @@ namespace DataManagement.Infrastructure.Repositories
 		public IIndustryRepository CreateIndustryRepository()
 		{
 			return new IndustryRepository(_connectionFactory, _repositoryHelper);
+		}
+
+		public IIndustryOrganizationRepository CreateIndustryOrganizationRepository()
+		{
+			return new IndustryOrganizationRepository(_connectionFactory, _repositoryHelper);
 		}
 	}
 }

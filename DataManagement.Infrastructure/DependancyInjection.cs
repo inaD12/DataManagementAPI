@@ -2,11 +2,6 @@
 using DataManagement.Infrastructure.Data;
 using DataManagement.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataManagement.Infrastructure
 {
@@ -19,6 +14,7 @@ namespace DataManagement.Infrastructure
 			services.AddTransient<IRepositoryHelper, RepositoryHelper>();
 			services.AddTransient<ICountryRepository, CountryRepository>();
 			services.AddTransient<IIndustryRepository, IndustryRepository>();
+			services.AddTransient<IOrganizationRepository, OrganizationRepository>();
 
 
 			return services;

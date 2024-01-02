@@ -42,7 +42,7 @@ namespace DataManagement.Application.Services
 
 			if (res)
 			{
-				return new OkResult();
+				return new CreatedResult($"/api/Country/CreateAsync", dto);
 			}
 
 

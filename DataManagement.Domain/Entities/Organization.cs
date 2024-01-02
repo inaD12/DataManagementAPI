@@ -11,6 +11,5 @@ namespace DataManagement.Domain.Entities
 		public string Description { get; set; }
 		public int Founded { get; set; }
 		public int NumberOfEmployees { get; set; }
-
 	}
 }
