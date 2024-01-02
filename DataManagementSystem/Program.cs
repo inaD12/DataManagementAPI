@@ -1,4 +1,5 @@
 using DataManagement.Application;
+using DataManagement.Application.Middlewares;
 using DataManagement.Domain;
 using DataManagement.Infrastructure;
 using Serilog;
@@ -31,6 +32,8 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.MapControllers();
 

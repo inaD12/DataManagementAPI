@@ -1119,7 +1119,8 @@
           "DataManagement.Domain": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.Data.SqlClient": "5.1.2"
+          "Microsoft.Data.SqlClient": "5.1.2",
+          "Serilog": "3.1.1"
         },
         "runtime": {
           "DataManagement.Application.dll": {}

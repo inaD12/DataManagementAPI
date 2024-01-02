@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "of4iyH5PIAy5Qkdeg3oBzvI5XsoiV1W3guhaKbFmUb7FHXLsSId3pepR+Wlm64Pkx7Ka4Gxj9YYqx1lTIWPCcg==",
+  "dgSpecHash": "m1hIu9tMbcg05MoU/7X5SijCXhY8wi0hoBs8kIhElF4WnxVXH66ZFDsCj0WQ5CGDh7ZIoeniSXDSi8fJFZcSlA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Application\\DataManagement.Application.csproj",
   "expectedPackageFiles": [
@@ -52,6 +52,7 @@
     "C:\\Users\\Capit\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
+    "C:\\Users\\Capit\\.nuget\\packages\\serilog\\3.1.1\\serilog.3.1.1.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Capit\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
