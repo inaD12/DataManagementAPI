@@ -1,0 +1,12 @@
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\bin\Debug\net7.0\Client.deps.json
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\bin\Debug\net7.0\Client.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\bin\Debug\net7.0\Client.pdb
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.csproj.AssemblyReference.cache
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.AssemblyInfoInputs.cache
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.AssemblyInfo.cs
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.csproj.CoreCompileInputs.cache
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\refint\Client.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.pdb
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\ref\Client.dll
