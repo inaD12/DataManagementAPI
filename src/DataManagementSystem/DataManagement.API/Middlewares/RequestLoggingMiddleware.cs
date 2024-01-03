@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Serilog;
+﻿using Serilog;
 using System.Text;
 
-namespace DataManagement.Application.Middlewares
+namespace DataManagement.API.Middlewares
 {
 	public class RequestLoggingMiddleware
 	{

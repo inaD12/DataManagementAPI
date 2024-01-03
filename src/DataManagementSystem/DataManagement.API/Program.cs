@@ -1,11 +1,13 @@
+using DataManagement.API.Extensions;
+using DataManagement.API.Middlewares;
 using DataManagement.Application;
-using DataManagement.Application.Middlewares;
 using DataManagement.Domain;
 using DataManagement.Infrastructure;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var config = builder.Configuration;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -16,8 +18,10 @@ builder.Services
 	.AddApplicationLayer()
 	.AddInfrastructureLayer();
 
-builder.Host.UseSerilog((context, configuration) =>
-	configuration.ReadFrom.Configuration(context.Configuration));
+builder.Services.InjectAuthentication(config);
+builder.Services.ConfigureAppSettings(config);
+
+builder.Host.ConfigureSerilog();
 
 var app = builder.Build();
 

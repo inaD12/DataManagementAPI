@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj": {}
+    "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\src\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj": {
+    "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\src\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\src\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj",
         "projectName": "DataManagement.Domain",
-        "projectPath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj",
+        "projectPath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\src\\DataManagementSystem\\DataManagement.Domain\\DataManagement.Domain.csproj",
         "packagesPath": "C:\\Users\\Capit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\DataManagement.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Capit\\OneDrive\\Работен плот\\Uni\\Курс 2\\Сем1\\API\\DataManagementSystem\\src\\DataManagementSystem\\DataManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Capit\\AppData\\Roaming\\NuGet\\NuGet.Config",
