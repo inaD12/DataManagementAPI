@@ -1,15 +1,15 @@
-﻿using DataManagement.Domain.DTOs;
+﻿using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
-using Microsoft.AspNetCore.Mvc;
+using DataManagement.Domain.DTOs.Response;
 
 namespace DataManagement.Application.Services
 {
 	public interface ICountryService
 	{
-		Task<IActionResult> GetCountryByNameAsync(string countryName);
+		Task<ResponseDTO> GetCountryByNameAsync(string countryName);
 
-		Task<IActionResult> CreateCountryAsync(CreateCountryRequestDTO dto);
-		Task<IActionResult> DeleteCountryAsync(string countryName);
-		Task<IActionResult> UpdateCountryAsync(UpdateCountryRequestDTO dto);
+		Task<Result> CreateCountryAsync(CreateCountryRequestDTO dto);
+		Task<Result> DeleteCountryAsync(string countryName);
+		Task<Result> UpdateCountryAsync(UpdateCountryRequestDTO dto, string countryName);
 	}
 }

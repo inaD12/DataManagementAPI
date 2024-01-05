@@ -88,15 +88,13 @@ namespace DataManagement.Application.Services
 			if (res is null)
 			{
 				result = UserErrors.NotFound;
-				ResponseDTO failDTO = new ResponseDTO(result);
 
-				return failDTO;
+				return new ResponseDTO(result);
 			}
 
 			GetUserResponseDTO dto = new GetUserResponseDTO(res.Name, res.FirstName, res.LastName, (DateTime)res.CreatedAt);
-			ResponseDTO responseDTO = new ResponseDTO(result, dto);
 
-			return responseDTO;
+			return new ResponseDTO(result, dto);
 		}
 
 		public async Task<Result> UpdateUser(UpdateUserDTO updateDTO, string username)

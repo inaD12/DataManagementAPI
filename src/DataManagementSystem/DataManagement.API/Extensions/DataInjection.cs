@@ -1,6 +1,7 @@
 ﻿using DataManagement.Application.Settings.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 
@@ -49,6 +50,34 @@ namespace DataManagement.API.Extensions
 					.ReadFrom.Configuration(context.Configuration)
 					.Enrich.FromLogContext()
 			);
+		}
+
+		public static IServiceCollection AddSwagger(this IServiceCollection services)
+		{
+			services.AddSwaggerGen(options =>
+			{
+				var securityScheme = new OpenApiSecurityScheme
+				{
+					Name = "JWT Authentication",
+					Description = "Enter JWT Bearer token **_only_**",
+					In = ParameterLocation.Header,
+					Type = SecuritySchemeType.Http,
+					Scheme = "bearer",
+					BearerFormat = "JWT",
+					Reference = new OpenApiReference
+					{
+						Id = JwtBearerDefaults.AuthenticationScheme,
+						Type = ReferenceType.SecurityScheme
+					}
+				};
+				options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+				options.AddSecurityRequirement(new OpenApiSecurityRequirement
+			{
+				{securityScheme, new string[] { }}
+			});
+			});
+
+			return services;
 		}
 	}
 }

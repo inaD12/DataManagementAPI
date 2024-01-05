@@ -1,5 +1,8 @@
-﻿using DataManagement.Application.Services;
+﻿using DataManagement.API.Extensions;
+using DataManagement.Application.Services;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
+using DataManagement.Domain.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
@@ -18,25 +21,53 @@ namespace DataManagement.API.Controllers
 		[HttpGet("GetIndustry")]
 		public async Task<IActionResult> GetIndustry(string industryName)
 		{
-			return await _industryService.GetIndustryByNameAsync(industryName);
+			ResponseDTO response = await _industryService.GetIndustryByNameAsync(industryName);
+
+			if (!response.Result.IsSuccess)
+			{
+				return this.ParseAndReturnMessage(response.Result);
+			}
+
+			return Ok(response.obj);
 		}
 
 		[HttpPost("CreateIndustry")]
 		public async Task<IActionResult> CreateIndustry(CreateIndustryRequestDTO dto)
 		{
-			return await _industryService.CreateIndustryAsync(dto);
+			Result result = await _industryService.CreateIndustryAsync(dto);
+
+			if (!result.IsSuccess)
+			{
+				return this.ParseAndReturnMessage(result);
+			}
+
+			return Created($"/api/Industry/{dto.Name}", dto);
 		}
 
-		[HttpPut("UpdateIndustry")]
-		public async Task<IActionResult> UpdateIndustry(UpdateIndustryRequestDTO dto)
+		[HttpPut("UpdateIndustry/{industryname}")]
+		public async Task<IActionResult> UpdateIndustry([FromBody] UpdateIndustryRequestDTO dto, [FromRoute] string industryname)
 		{
-			return await _industryService.UpdateIndustryAsync(dto);
+			Result result = await _industryService.UpdateIndustryAsync(dto, industryname);
+
+			if (!result.IsSuccess)
+			{
+				return this.ParseAndReturnMessage(result);
+			}
+
+			return Ok(result.Error);
 		}
 
 		[HttpDelete("DeleteIndustry/{industryName}")]
 		public async Task<IActionResult> DeleteIndustry(string industryName)
 		{
-			return await _industryService.DeleteIndustryAsync(industryName);
+			Result result = await _industryService.DeleteIndustryAsync(industryName);
+
+			if (!result.IsSuccess)
+			{
+				return this.ParseAndReturnMessage(result);
+			}
+
+			return Ok(result.Error);
 		}
 	}
 }

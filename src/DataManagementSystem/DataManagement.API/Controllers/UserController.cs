@@ -43,7 +43,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(response.Result);
 			}
 
-			return Ok(response);
+			return Ok(response.obj);
 		}
 
 		[HttpGet]
@@ -57,7 +57,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(response.Result);
 			}
 
-			return Ok(response);
+			return Ok(response.obj);
 		}
 
 		[HttpPut]
@@ -71,7 +71,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(result);
 			}
 
-			return Ok(result);
+			return Ok(result.Error);
 		}
 
 		[HttpDelete]
@@ -85,7 +85,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(result);
 			}
 
-			return Ok(result);
+			return Ok(result.Error);
 		}
 	}
 }

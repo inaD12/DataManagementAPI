@@ -1,4 +1,4 @@
 ﻿namespace DataManagement.Domain.DTOs.Response
 {
-	public record GetCountryResponseDTO(string Id,string Name, DateTime CreatedAt);
+	public record GetCountryResponseDTO(string Name, DateTime CreatedAt);
 }

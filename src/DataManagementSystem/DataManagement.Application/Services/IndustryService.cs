@@ -1,9 +1,9 @@
 ﻿using DataManagement.Application.Abstractions;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Errors;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.Application.Services
 {
@@ -16,21 +16,25 @@ namespace DataManagement.Application.Services
 			repository = repositoryFactory.CreateIndustryRepository();
 		}
 
-		public async Task<IActionResult> GetIndustryByNameAsync(string industryName)
+		public async Task<ResponseDTO> GetIndustryByNameAsync(string industryName)
 		{
+			Result result = Result.Success();
+
 			Industry? res = await repository.GetByNameAsync(industryName);
 
 			if (res is null)
 			{
-				return new NotFoundObjectResult(IndustryErrors.NotFound);
+				result = IndustryErrors.NotFound;
+
+				return new ResponseDTO(result);
 			}
 
 			GetIndustryResponseDTO dto = new GetIndustryResponseDTO(res.Id, res.Name, (DateTime)res.CreatedAt);
 
-			return new OkObjectResult(dto);
+			return new ResponseDTO(result, dto);
 		}
 
-		public async Task<IActionResult> CreateIndustryAsync(CreateIndustryRequestDTO dto)
+		public async Task<Result> CreateIndustryAsync(CreateIndustryRequestDTO dto)
 		{
 			Industry industry = new Industry()
 			{
@@ -42,41 +46,44 @@ namespace DataManagement.Application.Services
 
 			if (res)
 			{
-				return new CreatedResult($"/api/Country/CreateAsync", dto);
+				return Result.Success();
 			}
 
 
-			return new BadRequestObjectResult(IndustryErrors.CreationFailure);
+			return IndustryErrors.CreationFailure;
 		}
 
-		public async Task<IActionResult> DeleteIndustryAsync(string industryName)
+		public async Task<Result> DeleteIndustryAsync(string industryName)
 		{
 			var res = await repository.SoftDeleteByNameAsync(industryName);
 
 			if (res)
 			{
-				return new OkResult();
+				return Result.Success();
 			}
 
-			return new BadRequestObjectResult(IndustryErrors.DeleteUnsuccessful);
+			return IndustryErrors.DeleteUnsuccessful;
 		}
 
-		public async Task<IActionResult> UpdateIndustryAsync(UpdateIndustryRequestDTO dto)
+		public async Task<Result> UpdateIndustryAsync(UpdateIndustryRequestDTO dto, string industryName)
 		{
-			Industry industry = new Industry()
+			Industry? industry = await repository.GetByNameAsync(industryName);
+
+			if (industry is null)
 			{
-				Id = dto.Id,
-				Name = dto.Name
-			};
+				return IndustryErrors.NotFound;
+			}
+
+			industry.Name = dto.Name ?? industry.Name;
 
 			var res = await repository.UpdateAsync(industry);
 
 			if (res)
 			{
-				return new OkResult();
+				return Result.Success();
 			}
 
-			return new BadRequestObjectResult(IndustryErrors.NotUpdated);
+			return IndustryErrors.NotUpdated;
 		}
 	}
 }

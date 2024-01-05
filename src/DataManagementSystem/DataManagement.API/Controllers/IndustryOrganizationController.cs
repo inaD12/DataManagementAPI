@@ -1,4 +1,6 @@
-﻿using DataManagement.Application.Services.IndustryOrganizationServices;
+﻿using DataManagement.API.Extensions;
+using DataManagement.Application.Services.IndustryOrganizationServices;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,13 +20,27 @@ namespace DataManagement.API.Controllers
 		[HttpPost("CreateIndustryOrganizationRelationship")]
 		public async Task<IActionResult> CreateIndustryOrganizationRelationship(IndustryOrganizationRequestDTO dto)
 		{
-			return await _service.CreateAsync(dto);
+			Result result = await _service.CreateAsync(dto);
+
+			if (!result.IsSuccess)
+			{
+				return this.ParseAndReturnMessage(result);
+			}
+
+			return Created($"/api/IndustryOrganization/{dto.IndustryName}/{dto.OrganizationName}", dto);
 		}
 
 		[HttpDelete("DeleteIndustryOrganizationRelationship")]
 		public async Task<IActionResult> DeleteIndustryOrganizationRelationship(IndustryOrganizationRequestDTO dto)
 		{
-			return await _service.DeleteAsync(dto);
+			Result result = await _service.DeleteAsync(dto);
+
+			if (!result.IsSuccess)
+			{
+				return this.ParseAndReturnMessage(result);
+			}
+
+			return Ok(result.Error);
 		}
 	}
 }

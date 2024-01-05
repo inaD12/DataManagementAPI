@@ -1,13 +1,15 @@
-﻿using DataManagement.Domain.DTOs.Request;
+﻿using DataManagement.Domain.Abstractions.Result;
+using DataManagement.Domain.DTOs.Request;
+using DataManagement.Domain.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.Application.Services
 {
 	public interface IOrganizationService
 	{
-		Task<IActionResult> CreateOrganizationAsync(CreateOrganizationRequestDTO dto);
-		Task<IActionResult> DeleteOrganizationAsync(string OrganizationName);
-		Task<IActionResult> GetOrganizationByNameAsync(string OrganizationName);
-		Task<IActionResult> UpdateOrganizationAsync(UpdateOrganizationRequestDTO dto);
+		Task<ResponseDTO> GetOrganizationByNameAsync(string OrganizationName);
+		Task<Result> CreateOrganizationAsync(CreateOrganizationRequestDTO dto);
+		Task<Result> DeleteOrganizationAsync(string OrganizationName);
+		Task<Result> UpdateOrganizationAsync(UpdateOrganizationRequestDTO dto, string organizationName);
 	}
 }

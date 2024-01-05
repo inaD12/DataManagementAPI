@@ -1,8 +1,8 @@
 ﻿using DataManagement.Application.Abstractions;
 using DataManagement.Domain.Abstractions;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.Errors;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.Application.Services.IndustryOrganizationServices
 {
@@ -16,50 +16,50 @@ namespace DataManagement.Application.Services.IndustryOrganizationServices
 			_helper = helper;
 		}
 
-		public async Task<IActionResult> CreateAsync(IndustryOrganizationRequestDTO dto)
+		public async Task<Result> CreateAsync(IndustryOrganizationRequestDTO dto)
 		{
 			var conv = await _helper.Convert(dto);
 
 			if(!conv.orgExists)
 			{
-				return new NotFoundObjectResult(OrganizationErrors.NotFound);
+				return OrganizationErrors.NotFound;
 			}
 			if(!conv.industryExists)
 			{
-				return new NotFoundObjectResult(IndustryErrors.NotFound);
+				return IndustryErrors.NotFound;
 			}
 
 			bool res = await _repository.CreateAsync(conv.IndustryOrganization);
 
 			if (res)
 			{
-				return new CreatedResult($"/api/IndustryOrganization/CreateAsync", dto);
+				return Result.Success();
 			}
 
-			return new BadRequestObjectResult(IndustryOrganizationErrors.CreationFailure);
+			return IndustryOrganizationErrors.CreationFailure;
 		}
 
-		public async Task<IActionResult> DeleteAsync(IndustryOrganizationRequestDTO dto)
+		public async Task<Result> DeleteAsync(IndustryOrganizationRequestDTO dto)
 		{
 			var conv = await _helper.Convert(dto);
 
 			if (!conv.orgExists)
 			{
-				return new NotFoundObjectResult(OrganizationErrors.NotFound);
+				return OrganizationErrors.NotFound;
 			}
 			if (!conv.industryExists)
 			{
-				return new NotFoundObjectResult(IndustryErrors.NotFound);
+				return IndustryErrors.NotFound;
 			}
 
 			var res = await _repository.DeleteAsync(conv.IndustryOrganization);
 
 			if (res)
 			{
-				return new OkResult();
+				return Result.Success();
 			}
 
-			return new BadRequestObjectResult(IndustryOrganizationErrors.DeleteUnsuccessful);
+			return IndustryOrganizationErrors.DeleteUnsuccessful;
 		}
 	}
 }

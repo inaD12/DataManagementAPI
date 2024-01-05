@@ -1,11 +1,13 @@
-﻿using DataManagement.Domain.DTOs.Request;
-using Microsoft.AspNetCore.Mvc;
+﻿using DataManagement.Domain.Abstractions.Result;
+using DataManagement.Domain.DTOs.Request;
 
 namespace DataManagement.Application.Services.IndustryOrganizationServices
 {
-    public interface IIndustryOrganizationService
+	public interface IIndustryOrganizationService
     {
-        Task<IActionResult> CreateAsync(IndustryOrganizationRequestDTO dto);
-        Task<IActionResult> DeleteAsync(IndustryOrganizationRequestDTO dto);
-    }
+        Task<Result> CreateAsync(IndustryOrganizationRequestDTO dto);
+
+        Task<Result> DeleteAsync(IndustryOrganizationRequestDTO dto);
+
+	}
 }

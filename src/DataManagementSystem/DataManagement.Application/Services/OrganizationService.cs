@@ -1,9 +1,9 @@
 ﻿using DataManagement.Application.Abstractions;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Errors;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.Application.Services
 {
@@ -16,13 +16,17 @@ namespace DataManagement.Application.Services
 			repository = repositoryFactory.CreateOrganizationRepository();
 		}
 
-		public async Task<IActionResult> GetOrganizationByNameAsync(string OrganizationName)
+		public async Task<ResponseDTO> GetOrganizationByNameAsync(string OrganizationName)
 		{
+			Result result = Result.Success();
+
 			Organization? res = await repository.GetByNameAsync(OrganizationName);
 
 			if (res is null)
 			{
-				return new NotFoundObjectResult(OrganizationErrors.NotFound);
+				result = OrganizationErrors.NotFound;
+
+				return new ResponseDTO(result);
 			}
 
 			IEnumerable <Industry> industries = await repository.GetIndustriesByOrganizationIdAsync(res.Id);
@@ -41,10 +45,10 @@ namespace DataManagement.Application.Services
 				industryNames,
 				(DateTime)res.CreatedAt);
 
-			return new OkObjectResult(dto);
+			return new ResponseDTO(result, dto);
 		}
 
-		public async Task<IActionResult> CreateOrganizationAsync(CreateOrganizationRequestDTO dto)
+		public async Task<Result> CreateOrganizationAsync(CreateOrganizationRequestDTO dto)
 		{
 			Organization organization = new Organization()
 			{
@@ -62,47 +66,50 @@ namespace DataManagement.Application.Services
 
 			if (res)
 			{
-				return new CreatedResult($"/api/Organization/CreateAsync", dto);
+				return Result.Success();
 			}
 
 
-			return new BadRequestObjectResult(OrganizationErrors.CreationFailure);
+			return OrganizationErrors.CreationFailure;
 		}
 
-		public async Task<IActionResult> DeleteOrganizationAsync(string OrganizationName)
+		public async Task<Result> DeleteOrganizationAsync(string OrganizationName)
 		{
 			var res = await repository.SoftDeleteByNameAsync(OrganizationName);
 
 			if (res)
 			{
-				return new OkResult();
+				return Result.Success();
 			}
 
-			return new BadRequestObjectResult(OrganizationErrors.DeleteUnsuccessful);
+			return OrganizationErrors.DeleteUnsuccessful;
 		}
 
-		public async Task<IActionResult> UpdateOrganizationAsync(UpdateOrganizationRequestDTO dto)
+		public async Task<Result> UpdateOrganizationAsync(UpdateOrganizationRequestDTO dto, string organizationName)
 		{
-			Organization organization = new Organization()
+			Organization? organization = await repository.GetByNameAsync(organizationName);
+
+			if (organization is null)
 			{
-				Id = dto.Id,
-				OrganizationId = dto.OrganizationId,
-				Name = dto.Name,
-				Website = dto.Website,
-				CountryId = dto.CountryId,
-				Description = dto.Description,
-				Founded = dto.Founded,
-				NumberOfEmployees = dto.NumberOfEmployees,
-			};
+				return OrganizationErrors.NotFound;
+			}
+
+			organization.OrganizationId = dto.OrganizationId ?? organization.OrganizationId;
+			organization.Name = dto.Name ?? organization.Name;
+			organization.Website = dto.Website ?? organization.Website;
+			organization.CountryId = dto.CountryId ?? organization.CountryId;
+			organization.Description = dto.Description ?? organization.Description;
+			organization.Founded = dto.Founded;
+			organization.NumberOfEmployees = dto.NumberOfEmployees;
 
 			var res = await repository.UpdateAsync(organization);
 
 			if (res)
 			{
-				return new OkResult();
+				return Result.Success();
 			}
 
-			return new BadRequestObjectResult(OrganizationErrors.NotUpdated);
+			return OrganizationErrors.NotUpdated;
 		}
 	}
 }
