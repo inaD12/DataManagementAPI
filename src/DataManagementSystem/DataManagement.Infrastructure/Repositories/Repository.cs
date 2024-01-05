@@ -2,6 +2,7 @@
 using DataManagement.Application.Abstractions;
 using DataManagement.Domain.Entities.Base;
 using Serilog;
+using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
@@ -41,12 +42,12 @@ namespace DataManagement.Infrastructure.Repositories
 			{
 				var currentTime = DateTime.Now;
 
+				string query = $"UPDATE [{_tableName}] SET DeletedAt = @CurrentTime WHERE DeletedAt IS NULL AND Name = @Name";
+				var parameters = new { CurrentTime = currentTime, Name };
+
 				await using (var sqlConnection = _connectionFactory.CreateConnection())
 				{
-					var rowsAffected = await sqlConnection.ExecuteAsync(
-						$"UPDATE {_tableName} SET DeletedAt = @CurrentTime WHERE DeletedAt IS NULL AND Name = @Name",
-						new { CurrentTime = currentTime, Name }
-					);
+					var rowsAffected = await sqlConnection.ExecuteAsync(query, parameters);
 
 					return rowsAffected > 0;
 				}

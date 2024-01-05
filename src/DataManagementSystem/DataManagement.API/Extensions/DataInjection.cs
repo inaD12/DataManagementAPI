@@ -35,9 +35,8 @@ namespace DataManagement.API.Extensions
 
 		public static IServiceCollection ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
 		{
-
-			services.Configure<JwtOptionsConfiguration>(
-				configuration.GetSection("Jwtoptions"));
+			services.Configure<JwtOptionsConfiguration>	
+				(configuration.GetSection("Jwtoptions"));
 
 
 			return services;

@@ -1,5 +1,8 @@
-﻿using DataManagement.Application.Services;
+﻿using DataManagement.Application.Auth.PasswordManager;
+using DataManagement.Application.Auth.TokenManager;
+using DataManagement.Application.Services;
 using DataManagement.Application.Services.IndustryOrganizationServices;
+using DataManagement.Application.Settings.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DataManagement.Application
@@ -13,6 +16,9 @@ namespace DataManagement.Application
 			services.AddTransient<IOrganizationService, OrganizationService>();
 			services.AddTransient<IIndustryOrganizationService, IndustryOrganizationService>();
 			services.AddTransient<IIndustryOrganizationHelper, IndustryOrganizationHelper>();
+			services.AddSingleton<IPasswordManager, PasswordManager>();
+			services.AddSingleton<ITokenManager, TokenManager>();
+			services.AddTransient<IUserService, UserService>();
 
 			return services;
 		}

@@ -30,3 +30,14 @@ CREATE TABLE [IndustryOrganization](
     IndustryId varchar(36) NOT NULL FOREIGN KEY REFERENCES [Industry](Id) ON DELETE CASCADE,
     PRIMARY KEY (OrganizationId, IndustryId)
 );
+
+CREATE TABLE [User] (
+	Id varchar(36) NOT NULL PRIMARY KEY,
+	Name varchar(50) NOT NULL UNIQUE,
+	PasswordHash text NOT NULL,
+	Salt text NOT NULL,
+	FirstName varchar(50),
+	LastName varchar(50),
+    CreatedAt datetime NOT NULL,
+    DeletedAt datetime NULL,
+);

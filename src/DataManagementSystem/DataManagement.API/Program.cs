@@ -1,6 +1,7 @@
 using DataManagement.API.Extensions;
 using DataManagement.API.Middlewares;
 using DataManagement.Application;
+using DataManagement.Application.Settings.Options;
 using DataManagement.Domain;
 using DataManagement.Infrastructure;
 using Serilog;
@@ -10,16 +11,21 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 builder.Services.AddControllers();
+
+builder.Services.AddOptions();
+
+builder.Services.ConfigureAppSettings(config);
+builder.Services.InjectAuthentication(config);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 builder.Services
 	.AddDomainLayer()
 	.AddApplicationLayer()
 	.AddInfrastructureLayer();
 
-builder.Services.InjectAuthentication(config);
-builder.Services.ConfigureAppSettings(config);
 
 builder.Host.ConfigureSerilog();
 
@@ -35,6 +41,7 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
