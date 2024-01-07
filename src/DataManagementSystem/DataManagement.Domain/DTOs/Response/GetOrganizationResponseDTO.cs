@@ -5,7 +5,7 @@
 		string OrganizationId, 
 		string Name, 
 		string Website, 
-		string CountryId, 
+		string CountryName, 
 		string Description, 
 		int Founded, 
 		int NumberOfEmployees,

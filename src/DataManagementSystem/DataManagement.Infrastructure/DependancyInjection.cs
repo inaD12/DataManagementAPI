@@ -16,6 +16,7 @@ namespace DataManagement.Infrastructure
 			services.AddTransient<IIndustryRepository, IndustryRepository>();
 			services.AddTransient<IOrganizationRepository, OrganizationRepository>();
 			services.AddTransient<IUserRepository, UserRepository>();
+			services.AddTransient<IStatsRepository, StatsRepository>();
 
 
 			return services;

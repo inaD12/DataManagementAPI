@@ -19,6 +19,7 @@ namespace DataManagement.Application
 			services.AddSingleton<IPasswordManager, PasswordManager>();
 			services.AddSingleton<ITokenManager, TokenManager>();
 			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<IStatsService, StatsService>();
 
 			return services;
 		}

@@ -1,5 +1,6 @@
 ﻿using DataManagement.Application.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
+using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
@@ -10,10 +11,12 @@ namespace DataManagement.Application.Services
 	public class OrganizationService : IOrganizationService
 	{
 		private readonly IOrganizationRepository repository;
+		private readonly ICountryRepository countryRepository;
 
-		public OrganizationService(IRepositoryFactory repositoryFactory)
+		public OrganizationService(IRepositoryFactory repositoryFactory, ICountryRepository countryRepository)
 		{
 			repository = repositoryFactory.CreateOrganizationRepository();
+			this.countryRepository = countryRepository;
 		}
 
 		public async Task<ResponseDTO> GetOrganizationByNameAsync(string OrganizationName)
@@ -29,6 +32,15 @@ namespace DataManagement.Application.Services
 				return new ResponseDTO(result);
 			}
 
+			Country? country = await countryRepository.GetByIdAsync(res.CountryId);
+
+			if (country is null)
+			{
+				result = CountryErrors.NotFound;
+
+				return new ResponseDTO(result);
+			}
+
 			IEnumerable <Industry> industries = await repository.GetIndustriesByOrganizationIdAsync(res.Id);
 
 			IEnumerable<string> industryNames = industries.Select(industry => industry.Name);
@@ -38,7 +50,7 @@ namespace DataManagement.Application.Services
 				res.OrganizationId, 
 				res.Name, 
 				res.Website, 
-				res.CountryId, 
+				country.Name, 
 				res.Description, 
 				res.Founded, 
 				res.NumberOfEmployees,
@@ -50,12 +62,19 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> CreateOrganizationAsync(CreateOrganizationRequestDTO dto)
 		{
+			Country? country = await countryRepository.GetByNameAsync(dto.CountryName);
+
+			if (country is null)
+			{
+				return CountryErrors.NotFound;
+			}
+
 			Organization organization = new Organization()
 			{
 				OrganizationId = dto.OrganizationId,
 				Name = dto.Name,
 				Website = dto.Website,
-				CountryId = dto.CountryId,
+				CountryId = country.Id,
 				Description = dto.Description,
 				Founded = dto.Founded,
 				NumberOfEmployees = dto.NumberOfEmployees,
@@ -94,10 +113,17 @@ namespace DataManagement.Application.Services
 				return OrganizationErrors.NotFound;
 			}
 
+			Country? country = await countryRepository.GetByNameAsync(dto.CountryName);
+
+			if (country is null)
+			{
+				return CountryErrors.NotFound;
+			}
+
 			organization.OrganizationId = dto.OrganizationId ?? organization.OrganizationId;
 			organization.Name = dto.Name ?? organization.Name;
 			organization.Website = dto.Website ?? organization.Website;
-			organization.CountryId = dto.CountryId ?? organization.CountryId;
+			organization.CountryId = country.Id ?? organization.CountryId;
 			organization.Description = dto.Description ?? organization.Description;
 			organization.Founded = dto.Founded;
 			organization.NumberOfEmployees = dto.NumberOfEmployees;

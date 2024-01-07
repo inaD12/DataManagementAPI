@@ -36,6 +36,23 @@ namespace DataManagement.Infrastructure.Repositories
 			}
 		}
 
+		public async Task<TEntity?> GetByIdAsync(string Id)
+		{
+			try
+			{
+				await using (var connection = _connectionFactory.CreateConnection())
+				{
+					string query = $"SELECT * FROM [{_tableName}] WHERE DeletedAt IS NULL AND Id = @Id";
+					return await connection.QuerySingleOrDefaultAsync<TEntity>(query, new { Id });
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error($"Error in Repository, GetByIdAsync: {ex.Message}");
+				return default;
+			}
+		}
+
 		public virtual async Task<bool> SoftDeleteByNameAsync(string Name)
 		{
 			try
