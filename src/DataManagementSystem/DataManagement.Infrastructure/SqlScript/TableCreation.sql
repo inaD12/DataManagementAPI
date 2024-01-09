@@ -31,6 +31,13 @@ CREATE TABLE [IndustryOrganization](
     PRIMARY KEY (OrganizationId, IndustryId)
 );
 
+CREATE TABLE [UserRole](
+    Id varchar(36) NOT NULL PRIMARY KEY,
+    Name varchar(50) NOT NULL UNIQUE,
+    CreatedAt datetime NOT NULL,
+    DeletedAt datetime NULL,
+);
+
 CREATE TABLE [User] (
 	Id varchar(36) NOT NULL PRIMARY KEY,
 	Name varchar(50) NOT NULL UNIQUE,
@@ -38,6 +45,7 @@ CREATE TABLE [User] (
 	Salt text NOT NULL,
 	FirstName varchar(50),
 	LastName varchar(50),
+    UserRoleId varchar(36) NULL FOREIGN KEY REFERENCES [UserRole](Id) ON DELETE SET NULL,
     CreatedAt datetime NOT NULL,
     DeletedAt datetime NULL,
 );

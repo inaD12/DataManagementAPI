@@ -1,4 +1,5 @@
-﻿using DataManagement.Domain.Abstractions.Result;
+﻿using DataManagement.Application.Abstractions;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.DTOs.Stats;
 using DataManagement.Domain.Errors;
@@ -10,9 +11,9 @@ namespace DataManagement.Application.Services
 	{
 		private readonly IStatsRepository _statsRepository;
 
-		public StatsService(IStatsRepository statsRepository)
+		public StatsService(IRepositoryFactory repositoryFactory)
 		{
-			_statsRepository = statsRepository;
+			_statsRepository = repositoryFactory.CreateStatsRepository();
 		}
 
 		public async Task<ResponseDTO> GetTopTenOrganizationsWithMostWorkers()

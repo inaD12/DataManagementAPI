@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Security.Claims;
 using System.Text;
 
 namespace DataManagement.API.Extensions
@@ -75,6 +76,16 @@ namespace DataManagement.API.Extensions
 			{
 				{securityScheme, new string[] { }}
 			});
+			});
+
+			return services;
+		}
+
+		public static IServiceCollection AddPolicy(this IServiceCollection services)
+		{
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
 			});
 
 			return services;

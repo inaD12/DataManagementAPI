@@ -33,5 +33,20 @@ namespace DataManagement.Infrastructure.Repositories
 		{
 			return new IndustryOrganizationRepository(_connectionFactory, _repositoryHelper);
 		}
+
+		public IUserRepository CreateUserRepository()
+		{
+			return new UserRepository(_connectionFactory, _repositoryHelper);
+		}
+
+		public IStatsRepository CreateStatsRepository()
+		{
+			return new StatsRepository(_connectionFactory);
+		}
+
+		public IUserRoleRepository CreateUserRoleRepository()
+		{
+			return new UserRoleRepository(_connectionFactory, _repositoryHelper);
+		}
 	}
 }

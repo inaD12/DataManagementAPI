@@ -2,6 +2,7 @@
 using DataManagement.Application.Services.IndustryOrganizationServices;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
@@ -30,6 +31,7 @@ namespace DataManagement.API.Controllers
 			return Created($"/api/IndustryOrganization/{dto.IndustryName}/{dto.OrganizationName}", dto);
 		}
 
+		[Authorize(Policy = "RequireAdminRole")]
 		[HttpDelete("DeleteIndustryOrganizationRelationship")]
 		public async Task<IActionResult> DeleteIndustryOrganizationRelationship(IndustryOrganizationRequestDTO dto)
 		{

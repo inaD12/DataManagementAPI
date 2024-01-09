@@ -1,5 +1,6 @@
 ﻿using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
+using DataManagement.Application.Initializers;
 using DataManagement.Application.Services;
 using DataManagement.Application.Services.IndustryOrganizationServices;
 using DataManagement.Application.Settings.Options;
@@ -20,6 +21,7 @@ namespace DataManagement.Application
 			services.AddSingleton<ITokenManager, TokenManager>();
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<IStatsService, StatsService>();
+			services.AddTransient<IAccountInitializer, AccountInitializer>();
 
 			return services;
 		}

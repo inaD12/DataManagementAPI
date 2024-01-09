@@ -4,6 +4,7 @@ using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
@@ -58,6 +59,7 @@ namespace DataManagement.API.Controllers
 			return Ok(result.Error);
 		}
 
+		[Authorize(Policy = "RequireAdminRole")]
 		[HttpDelete("DeleteCountry/{countryName}")]
 		public async Task<IActionResult> DeleteCountry(string countryName)
 		{

@@ -1,3 +1,4 @@
+using DataManagement.API.BackgoundServices;
 using DataManagement.API.Extensions;
 using DataManagement.API.Middlewares;
 using DataManagement.Application;
@@ -16,6 +17,9 @@ builder.Services.AddOptions();
 
 builder.Services.ConfigureAppSettings(config);
 builder.Services.InjectAuthentication(config);
+builder.Services.AddPolicy();
+
+builder.Services.AddHostedService<StartupService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();

@@ -10,6 +10,8 @@
 
 		public static List<string> IndustryOrganization = new List<string> { "OrganizationId", "IndustryId",};
 
-		public static List<string> User = new List<string> { "Id", "Name", "PasswordHash", "Salt", "FirstName", "LastName", "CreatedAt" };
+		public static List<string> User = new List<string> { "Id", "Name", "PasswordHash", "Salt", "FirstName", "LastName", "UserRoleId", "CreatedAt" };
+
+		public static List<string> UserRole = new List<string> { "Id", "Name", "CreatedAt" };
 	}
 }

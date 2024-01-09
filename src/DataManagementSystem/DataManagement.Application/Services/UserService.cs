@@ -2,6 +2,7 @@
 using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
 using DataManagement.Domain.Abstractions.Result;
+using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
@@ -16,11 +17,11 @@ namespace DataManagement.Application.Services
 		private readonly ITokenManager _tokenManager;
 
 		public UserService(
-			IUserRepository userRepository,
+			IRepositoryFactory repositoryFactory,
 			IPasswordManager passwordManager,
 			ITokenManager tokenManager)
 		{
-			_userRepository = userRepository;
+			_userRepository = repositoryFactory.CreateUserRepository();
 			_passwordManager = passwordManager;
 			_tokenManager = tokenManager;
 		}
@@ -30,7 +31,7 @@ namespace DataManagement.Application.Services
 			LoginResponseDTO loginResponse = new LoginResponseDTO();
 			Result result = Result.Success();
 
-			User? user = await _userRepository.GetByNameAsync(loginDTO.Username);
+			UserWithRole? user = await _userRepository.GetByNameWithRoleAsync(loginDTO.Username);
 
 			if (user is null)
 			{
@@ -43,7 +44,7 @@ namespace DataManagement.Application.Services
 			else
 			{
 				result = Result.Success();
-				loginResponse.Token = _tokenManager.CreateToken(360);
+				loginResponse.Token = _tokenManager.CreateToken(user.Name, user.Role,360);
 			}
 
 			return new ResponseDTO(result, loginResponse);
@@ -83,7 +84,7 @@ namespace DataManagement.Application.Services
 		{
 			Result result = Result.Success();
 
-			User? res = await _userRepository.GetByNameAsync(userName);
+			UserWithRole? res = await _userRepository.GetByNameWithRoleAsync(userName);
 
 			if (res is null)
 			{
@@ -92,7 +93,7 @@ namespace DataManagement.Application.Services
 				return new ResponseDTO(result);
 			}
 
-			GetUserResponseDTO dto = new GetUserResponseDTO(res.Name, res.FirstName, res.LastName, (DateTime)res.CreatedAt);
+			GetUserResponseDTO dto = new GetUserResponseDTO(res.Name, res.FirstName, res.LastName, res.Role, (DateTime)res.CreatedAt);
 
 			return new ResponseDTO(result, dto);
 		}

@@ -40,6 +40,9 @@ namespace DataManagement.Infrastructure.Repositories
 				case "User":
 					return DBTableProperties.User;
 
+				case "UserRole":
+					return DBTableProperties.UserRole;
+
 
 				default:
 					throw new NotSupportedException($"Table '{_tableName}' not supported.");
