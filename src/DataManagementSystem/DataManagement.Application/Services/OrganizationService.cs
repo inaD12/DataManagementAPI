@@ -1,4 +1,4 @@
-﻿using DataManagement.Application.Abstractions;
+﻿using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
@@ -10,20 +10,18 @@ namespace DataManagement.Application.Services
 {
 	public class OrganizationService : IOrganizationService
 	{
-		private readonly IOrganizationRepository repository;
-		private readonly ICountryRepository countryRepository;
+		private readonly IDBContext _dBContext;
 
-		public OrganizationService(IRepositoryFactory repositoryFactory, ICountryRepository countryRepository)
+		public OrganizationService(IDBContext dBContext)
 		{
-			repository = repositoryFactory.CreateOrganizationRepository();
-			this.countryRepository = countryRepository;
+			_dBContext = dBContext;
 		}
 
 		public async Task<ResponseDTO> GetOrganizationByNameAsync(string OrganizationName)
 		{
 			Result result = Result.Success();
 
-			Organization? res = await repository.GetByNameAsync(OrganizationName);
+			Organization? res = await _dBContext.Organization.GetByNameAsync(OrganizationName);
 
 			if (res is null)
 			{
@@ -32,7 +30,7 @@ namespace DataManagement.Application.Services
 				return new ResponseDTO(result);
 			}
 
-			Country? country = await countryRepository.GetByIdAsync(res.CountryId);
+			Country? country = await _dBContext.Country.GetByIdAsync(res.CountryId);
 
 			if (country is null)
 			{
@@ -41,7 +39,7 @@ namespace DataManagement.Application.Services
 				return new ResponseDTO(result);
 			}
 
-			IEnumerable <Industry> industries = await repository.GetIndustriesByOrganizationIdAsync(res.Id);
+			IEnumerable <Industry> industries = await _dBContext.Organization.GetIndustriesByOrganizationIdAsync(res.Id);
 
 			IEnumerable<string> industryNames = industries.Select(industry => industry.Name);
 
@@ -62,7 +60,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> CreateOrganizationAsync(CreateOrganizationRequestDTO dto)
 		{
-			Country? country = await countryRepository.GetByNameAsync(dto.CountryName);
+			Country? country = await _dBContext.Country.GetByNameAsync(dto.CountryName);
 
 			if (country is null)
 			{
@@ -81,7 +79,7 @@ namespace DataManagement.Application.Services
 			};
 			organization.Set();
 
-			bool res = await repository.CreateAsync(organization);
+			bool res = await _dBContext.Organization.CreateAsync(organization);
 
 			if (res)
 			{
@@ -94,7 +92,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> DeleteOrganizationAsync(string OrganizationName)
 		{
-			var res = await repository.SoftDeleteByNameAsync(OrganizationName);
+			var res = await _dBContext.Organization.SoftDeleteByNameAsync(OrganizationName);
 
 			if (res)
 			{
@@ -106,14 +104,14 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> UpdateOrganizationAsync(UpdateOrganizationRequestDTO dto, string organizationName)
 		{
-			Organization? organization = await repository.GetByNameAsync(organizationName);
+			Organization? organization = await _dBContext.Organization.GetByNameAsync(organizationName);
 
 			if (organization is null)
 			{
 				return OrganizationErrors.NotFound;
 			}
 
-			Country? country = await countryRepository.GetByNameAsync(dto.CountryName);
+			Country? country = await _dBContext.Country.GetByNameAsync(dto.CountryName);
 
 			if (country is null)
 			{
@@ -128,7 +126,7 @@ namespace DataManagement.Application.Services
 			organization.Founded = dto.Founded;
 			organization.NumberOfEmployees = dto.NumberOfEmployees;
 
-			var res = await repository.UpdateAsync(organization);
+			var res = await _dBContext.Organization.UpdateAsync(organization);
 
 			if (res)
 			{

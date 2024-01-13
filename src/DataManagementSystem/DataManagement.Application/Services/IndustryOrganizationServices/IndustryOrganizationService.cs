@@ -1,5 +1,4 @@
-﻿using DataManagement.Application.Abstractions;
-using DataManagement.Domain.Abstractions;
+﻿using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.Errors;
@@ -8,11 +7,11 @@ namespace DataManagement.Application.Services.IndustryOrganizationServices
 {
 	internal class IndustryOrganizationService : IIndustryOrganizationService
 	{
-		private readonly IIndustryOrganizationRepository _repository;
+		private readonly IDBContext _dbContext;
 		private readonly IIndustryOrganizationHelper _helper;
-		public IndustryOrganizationService(IRepositoryFactory repositoryFactory, IIndustryOrganizationHelper helper)
+		public IndustryOrganizationService(IDBContext dBContext, IIndustryOrganizationHelper helper)
 		{
-			_repository = repositoryFactory.CreateIndustryOrganizationRepository();
+			_dbContext = dBContext;
 			_helper = helper;
 		}
 
@@ -29,7 +28,7 @@ namespace DataManagement.Application.Services.IndustryOrganizationServices
 				return IndustryErrors.NotFound;
 			}
 
-			bool res = await _repository.CreateAsync(conv.IndustryOrganization);
+			bool res = await _dbContext.IndustryOrganization.CreateAsync(conv.IndustryOrganization);
 
 			if (res)
 			{
@@ -52,7 +51,7 @@ namespace DataManagement.Application.Services.IndustryOrganizationServices
 				return IndustryErrors.NotFound;
 			}
 
-			var res = await _repository.DeleteAsync(conv.IndustryOrganization);
+			var res = await _dbContext.IndustryOrganization.DeleteAsync(conv.IndustryOrganization);
 
 			if (res)
 			{

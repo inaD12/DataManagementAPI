@@ -1,4 +1,4 @@
-﻿using DataManagement.Application.Abstractions;
+﻿using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
@@ -9,18 +9,18 @@ namespace DataManagement.Application.Services
 {
 	public class IndustryService : IIndustryService
 	{
-		private readonly IIndustryRepository repository;
+		private readonly IDBContext _dbContext;
 
-		public IndustryService(IRepositoryFactory repositoryFactory)
+		public IndustryService(IDBContext dBContext)
 		{
-			repository = repositoryFactory.CreateIndustryRepository();
+			_dbContext = dBContext;
 		}
 
 		public async Task<ResponseDTO> GetIndustryByNameAsync(string industryName)
 		{
 			Result result = Result.Success();
 
-			Industry? res = await repository.GetByNameAsync(industryName);
+			Industry? res = await _dbContext.Industry.GetByNameAsync(industryName);
 
 			if (res is null)
 			{
@@ -42,7 +42,7 @@ namespace DataManagement.Application.Services
 			};
 			industry.Set();
 
-			bool res = await repository.CreateAsync(industry);
+			bool res = await _dbContext.Industry.CreateAsync(industry);
 
 			if (res)
 			{
@@ -55,7 +55,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> DeleteIndustryAsync(string industryName)
 		{
-			var res = await repository.SoftDeleteByNameAsync(industryName);
+			var res = await _dbContext.Industry.SoftDeleteByNameAsync(industryName);
 
 			if (res)
 			{
@@ -67,7 +67,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> UpdateIndustryAsync(UpdateIndustryRequestDTO dto, string industryName)
 		{
-			Industry? industry = await repository.GetByNameAsync(industryName);
+			Industry? industry = await _dbContext.Industry.GetByNameAsync(industryName);
 
 			if (industry is null)
 			{
@@ -76,7 +76,7 @@ namespace DataManagement.Application.Services
 
 			industry.Name = dto.Name ?? industry.Name;
 
-			var res = await repository.UpdateAsync(industry);
+			var res = await _dbContext.Industry.UpdateAsync(industry);
 
 			if (res)
 			{

@@ -1,4 +1,4 @@
-﻿using DataManagement.Application.Abstractions;
+﻿using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
@@ -9,18 +9,18 @@ namespace DataManagement.Application.Services
 {
 	public class CountryService : ICountryService
 	{
-		private readonly ICountryRepository repository;
+		private readonly IDBContext _dBContext;
 
-		public CountryService(IRepositoryFactory repositoryFactory)
+		public CountryService(IDBContext dBContext)
 		{
-			repository = repositoryFactory.CreateCountryRepository();
+			_dBContext = dBContext;
 		}
 
 		public async Task<ResponseDTO> GetCountryByNameAsync(string countryName)
 		{
 			Result result = Result.Success();
 
-			Country? res = await repository.GetByNameAsync(countryName);
+			Country? res = await _dBContext.Country.GetByNameAsync(countryName);
 
 			if (res is null)
 			{
@@ -43,7 +43,7 @@ namespace DataManagement.Application.Services
 
 			country.Set();
 
-			bool res = await repository.CreateAsync(country);
+			bool res = await _dBContext.Country.CreateAsync(country);
 
 			if(res)
 			{
@@ -55,7 +55,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> DeleteCountryAsync(string countryName)
 		{
-			var res = await repository.SoftDeleteByNameAsync(countryName);
+			var res = await _dBContext.Country.SoftDeleteByNameAsync(countryName);
 
 			if (res)
 			{
@@ -67,7 +67,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> UpdateCountryAsync(UpdateCountryRequestDTO dto, string countryName)
 		{
-			Country? country = await repository.GetByNameAsync(countryName);
+			Country? country = await _dBContext.Country.GetByNameAsync(countryName);
 
 			if (country is null)
 			{
@@ -76,7 +76,7 @@ namespace DataManagement.Application.Services
 
 			country.Name = dto.Name ?? country.Name;
 
-			var res =  await repository.UpdateAsync(country);
+			var res =  await _dBContext.Country.UpdateAsync(country);
 
 			if (res)
 			{

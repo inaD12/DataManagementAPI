@@ -1,24 +1,23 @@
-﻿using DataManagement.Application.Abstractions;
+﻿using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.DTOs.Stats;
 using DataManagement.Domain.Errors;
-using DataManagement.Infrastructure.Repositories;
 
 namespace DataManagement.Application.Services
 {
 	internal class StatsService : IStatsService
 	{
-		private readonly IStatsRepository _statsRepository;
+		private readonly IDBContext _dbContext;
 
-		public StatsService(IRepositoryFactory repositoryFactory)
+		public StatsService(IDBContext dBContext)
 		{
-			_statsRepository = repositoryFactory.CreateStatsRepository();
+			_dbContext = dBContext;
 		}
 
 		public async Task<ResponseDTO> GetTopTenOrganizationsWithMostWorkers()
 		{
-			ICollection<OrganizationStatistics>? res = await _statsRepository.GetTopTenOrganizationsWithMostWorkers();
+			ICollection<OrganizationStatistics>? res = await _dbContext.Stats.GetTopTenOrganizationsWithMostWorkers();
 
 			if (res is null)
 			{
@@ -35,7 +34,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<ResponseDTO> GetWorkerCountByIndustries()
 		{
-			ICollection<IndustryCountStatistics>? res = await _statsRepository.GetWorkerCountByIndustries();
+			ICollection<IndustryCountStatistics>? res = await _dbContext.Stats.GetWorkerCountByIndustries();
 
 			if (res is null)
 			{
@@ -52,7 +51,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<ResponseDTO> GetTotalWorkerCount()
 		{
-			var res = await _statsRepository.GetTotalWorkerCount();
+			var res = await _dbContext.Stats.GetTotalWorkerCount();
 
 			if (res is null)
 			{

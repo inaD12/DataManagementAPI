@@ -1,22 +1,17 @@
-﻿using DataManagement.Application.Abstractions;
-using DataManagement.Application.Auth.PasswordManager;
-using DataManagement.Domain.DTOs;
+﻿using DataManagement.Application.Auth.PasswordManager;
+using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Roles;
-using System.Data;
-using System.Net;
 
 namespace DataManagement.Application.Initializers
 {
 	internal class AccountInitializer : IAccountInitializer
 	{
-		private readonly IUserRepository _userRepository;
-		private readonly IUserRoleRepository _userRoleRepository;
+		private readonly IDBContext _dbContext;
 		private readonly IPasswordManager _passwordManager;
-		public AccountInitializer(IRepositoryFactory repositoryFactory, IPasswordManager passwordManager)
+		public AccountInitializer(IDBContext dBContext, IPasswordManager passwordManager)
 		{
-			_userRepository = repositoryFactory.CreateUserRepository();
-			_userRoleRepository = repositoryFactory.CreateUserRoleRepository();
+			_dbContext = dBContext;
 			_passwordManager = passwordManager;
 		}
 
@@ -39,13 +34,13 @@ namespace DataManagement.Application.Initializers
 
 				admin.Set();
 
-				UserRole userRole = await _userRoleRepository.GetByNameAsync(Roles.Admin);
+				UserRole userRole = await _dbContext.UserRole.GetByNameAsync(Roles.Admin);
 
 				admin.PasswordHash = _passwordManager.HashPassword(password, out string salt);
 				admin.Salt = salt;
 				admin.UserRoleId = userRole.Id;
 
-				await _userRepository.CreateAsync(admin);
+				await _dbContext.User.CreateAsync(admin);
 			}
 		}
 		private async Task CreateRoleIfItDoesntExist(string name)
@@ -59,12 +54,12 @@ namespace DataManagement.Application.Initializers
 
 				userRole.Set();
 
-				_userRoleRepository.CreateAsync(userRole);
+				_dbContext.UserRole.CreateAsync(userRole);
 			}
 		}
 		private async Task<bool> CheckRole(string name)
 		{
-			UserRole? role = await _userRoleRepository.GetByNameAsync(name);
+			UserRole? role = await _dbContext.UserRole.GetByNameAsync(name);
 
 			if (role == null)
 			 return false;
@@ -73,7 +68,7 @@ namespace DataManagement.Application.Initializers
 
 		private async Task<bool> CheckAdmin(string username)
 		{
-			User? user = await _userRepository.GetByNameAsync(username);
+			User? user = await _dbContext.User.GetByNameAsync(username);
 
 			if (user == null)
 				return false;

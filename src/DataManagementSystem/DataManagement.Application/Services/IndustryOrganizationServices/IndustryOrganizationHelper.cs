@@ -1,27 +1,25 @@
-﻿using DataManagement.Application.Abstractions;
-using DataManagement.Domain.DTOs.Request;
+﻿using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities;
+using DataManagement.Domain.Abstractions;
 
 namespace DataManagement.Application.Services.IndustryOrganizationServices
 {
 	internal class IndustryOrganizationHelper : IIndustryOrganizationHelper
 	{
-		private readonly IIndustryRepository _industryRepository;
-		private readonly IOrganizationRepository _organizationRepository;
-		public IndustryOrganizationHelper(IRepositoryFactory repositoryFactory)
+		private readonly IDBContext _dbContext;
+		public IndustryOrganizationHelper(IDBContext dBContext)
 		{
-			_industryRepository = repositoryFactory.CreateIndustryRepository();
-			_organizationRepository = repositoryFactory.CreateOrganizationRepository();
+			_dbContext = dBContext;
 		}
 		private async Task<Industry?> GetIndustry(string Name)
 		{
-			return await _industryRepository.GetByNameAsync(Name);
+			return await _dbContext.Industry.GetByNameAsync(Name);
 		}
 
 		private async Task<Organization?> GetOrganization(string Name)
 		{
-			return await _organizationRepository.GetByNameAsync(Name);
+			return await _dbContext.Organization.GetByNameAsync(Name);
 		}
 
 		public async Task<ConvertIndustryOrgRequestDTO> Convert(IndustryOrganizationRequestDTO dto)

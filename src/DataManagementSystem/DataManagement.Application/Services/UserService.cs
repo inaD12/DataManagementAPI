@@ -1,6 +1,6 @@
-﻿using DataManagement.Application.Abstractions;
-using DataManagement.Application.Auth.PasswordManager;
+﻿using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
+using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
@@ -12,16 +12,16 @@ namespace DataManagement.Application.Services
 {
 	internal class UserService : IUserService
 	{
-		private readonly IUserRepository _userRepository;
+		private readonly IDBContext _dBContext;
 		private readonly IPasswordManager _passwordManager;
 		private readonly ITokenManager _tokenManager;
 
 		public UserService(
-			IRepositoryFactory repositoryFactory,
+			IDBContext dBContext,
 			IPasswordManager passwordManager,
 			ITokenManager tokenManager)
 		{
-			_userRepository = repositoryFactory.CreateUserRepository();
+			_dBContext = dBContext;
 			_passwordManager = passwordManager;
 			_tokenManager = tokenManager;
 		}
@@ -31,7 +31,7 @@ namespace DataManagement.Application.Services
 			LoginResponseDTO loginResponse = new LoginResponseDTO();
 			Result result = Result.Success();
 
-			UserWithRole? user = await _userRepository.GetByNameWithRoleAsync(loginDTO.Username);
+			UserWithRole? user = await _dBContext.User.GetByNameWithRoleAsync(loginDTO.Username);
 
 			if (user is null)
 			{
@@ -52,7 +52,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> RegisterUser(RegisterUserDTO registerDTO)
 		{
-			User? user = await _userRepository.GetByNameAsync(registerDTO.Username);
+			User? user = await _dBContext.User.GetByNameAsync(registerDTO.Username);
 
 			if (user is not null)
 			{
@@ -70,7 +70,7 @@ namespace DataManagement.Application.Services
 
 			newUser.Set();
 
-			bool res = await _userRepository.CreateAsync(newUser);
+			bool res = await _dBContext.User.CreateAsync(newUser);
 
 			if (res)
 			{
@@ -84,7 +84,7 @@ namespace DataManagement.Application.Services
 		{
 			Result result = Result.Success();
 
-			UserWithRole? res = await _userRepository.GetByNameWithRoleAsync(userName);
+			UserWithRole? res = await _dBContext.User.GetByNameWithRoleAsync(userName);
 
 			if (res is null)
 			{
@@ -100,7 +100,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> UpdateUser(UpdateUserDTO updateDTO, string username)
 		{
-			User? user = await _userRepository.GetByNameAsync(username);
+			User? user = await _dBContext.User.GetByNameAsync(username);
 
 			if (user is null)
 			{
@@ -110,7 +110,7 @@ namespace DataManagement.Application.Services
 			user.FirstName = updateDTO.FirstName ?? user.FirstName;
 			user.LastName = updateDTO.LastName ?? user.LastName;
 
-			var res = await _userRepository.UpdateAsync(user);
+			var res = await _dBContext.User.UpdateAsync(user);
 
 			if (res)
 			{
@@ -122,7 +122,7 @@ namespace DataManagement.Application.Services
 
 		public async Task<Result> DeleteUser(string userName)
 		{
-			var res = await _userRepository.SoftDeleteByNameAsync(userName);
+			var res = await _dBContext.User.SoftDeleteByNameAsync(userName);
 
 			if (res)
 			{

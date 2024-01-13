@@ -1,5 +1,7 @@
 ﻿using DataManagement.Application.Abstractions;
+using DataManagement.Domain.Abstractions;
 using DataManagement.Infrastructure.Data;
+using DataManagement.Infrastructure.DBContexts;
 using DataManagement.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +20,7 @@ namespace DataManagement.Infrastructure
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IStatsRepository, StatsRepository>();
 			services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+			services.AddTransient<IDBContext, DBContext>();
 
 
 			return services;
