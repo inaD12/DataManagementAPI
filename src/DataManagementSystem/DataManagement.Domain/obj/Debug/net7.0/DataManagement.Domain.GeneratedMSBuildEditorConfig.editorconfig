@@ -9,3 +9,5 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DataManagement.Domain
 build_property.ProjectDir = C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.Domain\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

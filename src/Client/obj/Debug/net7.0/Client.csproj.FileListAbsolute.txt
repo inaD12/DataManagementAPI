@@ -10,3 +10,4 @@ C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataM
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\refint\Client.dll
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.pdb
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\ref\Client.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\obj\Debug\net7.0\Client.sourcelink.json

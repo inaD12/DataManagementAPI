@@ -201,3 +201,4 @@ C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataM
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.API\obj\Debug\net7.0\DataManagement.API.pdb
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.API\obj\Debug\net7.0\DataManagement.API.genruntimeconfig.cache
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.API\obj\Debug\net7.0\ref\DataManagement.API.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.API\obj\Debug\net7.0\DataManagement.API.sourcelink.json

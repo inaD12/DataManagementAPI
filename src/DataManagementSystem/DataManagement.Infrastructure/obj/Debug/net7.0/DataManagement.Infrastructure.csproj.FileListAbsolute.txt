@@ -32,3 +32,4 @@ C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataM
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.Infrastructure\obj\Debug\net7.0\refint\DataManagement.Infrastructure.dll
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.Infrastructure\obj\Debug\net7.0\DataManagement.Infrastructure.pdb
 C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.Infrastructure\obj\Debug\net7.0\ref\DataManagement.Infrastructure.dll
+C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\DataManagementSystem\DataManagement.Infrastructure\obj\Debug\net7.0\DataManagement.Infrastructure.sourcelink.json
