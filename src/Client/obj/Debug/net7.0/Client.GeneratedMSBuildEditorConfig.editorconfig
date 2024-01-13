@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Client
-build_property.ProjectDir = C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\src\Client\
+build_property.ProjectDir = C:\Users\Capit\OneDrive\Работен плот\Uni\Курс 2\Сем1\API\DataManagementSystem\Client\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
