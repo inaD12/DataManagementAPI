@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions;
+using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities;
 using Serilog;
@@ -7,7 +7,7 @@ using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal class UserRepository : Repository<User>, IUserRepository
+    internal class UserRepository : Repository<User>, IUserRepository
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		public UserRepository(ISqlConnectionFactory connectionFactory, IRepositoryHelper repositoryHelper)

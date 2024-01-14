@@ -5,7 +5,7 @@ class Program
 {
 	static async Task Main(string[] args)
 	{
-		string apiUrl = "";
+		string apiUrl = "https://localhost:7174/api/Data/CSVData";
 		string csvFilePath = "C:\\Users\\Capit\\OneDrive\\Работен плот\\organizations-100.csv";
 
 		try
@@ -33,7 +33,23 @@ class Program
 			throw new InvalidOperationException("CSV data must have a header and at least one data row.");
 		}
 
-		var headers = lines[0].Split(',').Select(header => header.Trim()).Where(header => header != "Index").ToList();
+		var headers = lines[0].Split(',').Select(header => header.Trim()).ToList();
+
+		if (headers.Contains("Index"))
+		{
+			headers.Remove("Index");
+		}
+
+		if (headers.Contains("Organization Id"))
+		{
+			int index = headers.IndexOf("Organization Id");
+			headers[index] = "OrganizationId";
+		}
+		if (headers.Contains("Number of employees"))
+		{
+			int index = headers.IndexOf("Number of employees");
+			headers[index] = "NumberOfEmployees";
+		}
 
 		List<Dictionary<string, string>> jsonDataList = new List<Dictionary<string, string>>();
 
@@ -44,25 +60,49 @@ class Program
 				continue;
 			}
 
-			var values = lines[i].Split(',').Skip(1);
+			var values = ParseCsvLine(lines[i]);
 
-			if (values.Count() < headers.Count)
+			if (values.Count < headers.Count)
 			{
 				Console.WriteLine($"Warning: Insufficient data at line {i + 1}. Skipping this row.");
 				continue;
 			}
 
-			var jsonDataEntry = new Dictionary<string, string>();
-
-			for (int j = 0; j < headers.Count; j++)
-			{
-				jsonDataEntry[headers[j]] = values.ElementAt(j).Trim();
-			}
+			var jsonDataEntry = headers.Zip(values, (header, value) => new { header, value })
+									  .ToDictionary(pair => pair.header, pair => pair.value.Trim());
 
 			jsonDataList.Add(jsonDataEntry);
 		}
 
 		return JsonConvert.SerializeObject(jsonDataList, Formatting.Indented);
+	}
+
+	static List<string> ParseCsvLine(string csvLine)
+	{
+		var values = new List<string>();
+		var inQuotes = false;
+		var currentValue = new StringBuilder();
+
+		foreach (char c in csvLine)
+		{
+			if (c == '"')
+			{
+				inQuotes = !inQuotes;
+			}
+			else if (c == ',' && !inQuotes)
+			{
+				values.Add(currentValue.ToString().Trim(' ', '"'));
+				currentValue.Clear();
+			}
+			else
+			{
+				currentValue.Append(c);
+			}
+		}
+
+		values.Add(currentValue.ToString().Trim(' ', '"'));
+
+		return values.Skip(1).ToList();
 	}
 
 	static async Task SendDataToApi(string apiUrl, string jsonData)

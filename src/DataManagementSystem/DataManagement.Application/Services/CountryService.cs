@@ -1,4 +1,4 @@
-﻿using DataManagement.Domain.Abstractions;
+﻿using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
@@ -7,7 +7,7 @@ using DataManagement.Domain.Errors;
 
 namespace DataManagement.Application.Services
 {
-	public class CountryService : ICountryService
+    internal class CountryService : ICountryService
 	{
 		private readonly IDBContext _dBContext;
 

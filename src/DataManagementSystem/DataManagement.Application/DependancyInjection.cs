@@ -1,9 +1,11 @@
-﻿using DataManagement.Application.Auth.PasswordManager;
+﻿using DataManagement.Application.Abstractions;
+using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
 using DataManagement.Application.Initializers;
 using DataManagement.Application.Services;
+using DataManagement.Application.Services.FileServices;
+using DataManagement.Application.Services.FileServices.Data;
 using DataManagement.Application.Services.IndustryOrganizationServices;
-using DataManagement.Application.Settings.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DataManagement.Application
@@ -22,6 +24,12 @@ namespace DataManagement.Application
 			services.AddTransient<IUserService, UserService>();
 			services.AddTransient<IStatsService, StatsService>();
 			services.AddTransient<IAccountInitializer, AccountInitializer>();
+			services.AddTransient<IFileService, FileService>();
+			services.AddTransient<INormalizer, Normalizer>();
+			services.AddTransient<IInserter, Inserter>();
+			services.AddTransient<IEntityFactory, EntityFactory>();
+			services.AddTransient<IDBCreator, DBCreator>();
+			services.AddSingleton<ITableCreator, TableCreator>();
 
 			return services;
 		}

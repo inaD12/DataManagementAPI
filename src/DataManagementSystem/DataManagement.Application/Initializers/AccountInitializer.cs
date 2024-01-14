@@ -1,7 +1,8 @@
-﻿using DataManagement.Application.Auth.PasswordManager;
-using DataManagement.Domain.Abstractions;
+﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Roles;
+using Serilog;
 
 namespace DataManagement.Application.Initializers
 {
@@ -16,45 +17,59 @@ namespace DataManagement.Application.Initializers
 		}
 
 
-		public void TryCreate()
+		public async Task TryCreate()
 		{
-			CreateRoleIfItDoesntExist(Roles.Admin);
-			CreateRoleIfItDoesntExist(Roles.User);
+			await CreateRoleIfItDoesntExist(Roles.Admin);
+			await CreateRoleIfItDoesntExist(Roles.User);
 
-			CreateAdminIfItDoesntExist("admin", "password");
+			await CreateAdminIfItDoesntExist("admin", "password");
 		}
 		private async Task CreateAdminIfItDoesntExist(string username, string password)
 		{
-			if (await CheckAdmin(username) == false)
+			try
 			{
-				User admin = new User()
+				if (await CheckAdmin(username) == false)
 				{
-					Name = username,
-				};
+					User admin = new User()
+					{
+						Name = username,
+					};
 
-				admin.Set();
+					admin.Set();
 
-				UserRole userRole = await _dbContext.UserRole.GetByNameAsync(Roles.Admin);
+					UserRole userRole = await _dbContext.UserRole.GetByNameAsync(Roles.Admin);
 
-				admin.PasswordHash = _passwordManager.HashPassword(password, out string salt);
-				admin.Salt = salt;
-				admin.UserRoleId = userRole.Id;
+					admin.PasswordHash = _passwordManager.HashPassword(password, out string salt);
+					admin.Salt = salt;
+					admin.UserRoleId = userRole.Id;
 
-				await _dbContext.User.CreateAsync(admin);
+					await _dbContext.User.CreateAsync(admin);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error($"Error in AccountInitializer, CreateAdminIfItDoesntExist: {ex.Message}");
 			}
 		}
 		private async Task CreateRoleIfItDoesntExist(string name)
 		{
-			if (await CheckRole(name) == false)
+			try
 			{
-				UserRole userRole = new UserRole()
+				if (await CheckRole(name) == false)
 				{
-					Name = name,
-				};
+					UserRole userRole = new UserRole()
+					{
+						Name = name,
+					};
 
-				userRole.Set();
+					userRole.Set();
 
-				_dbContext.UserRole.CreateAsync(userRole);
+					_dbContext.UserRole.CreateAsync(userRole);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error($"Error in AccountInitializer, CreateRoleIfItDoesntExist: {ex.Message}");
 			}
 		}
 		private async Task<bool> CheckRole(string name)
@@ -62,7 +77,7 @@ namespace DataManagement.Application.Initializers
 			UserRole? role = await _dbContext.UserRole.GetByNameAsync(name);
 
 			if (role == null)
-			 return false;
+				return false;
 			return true;
 		}
 

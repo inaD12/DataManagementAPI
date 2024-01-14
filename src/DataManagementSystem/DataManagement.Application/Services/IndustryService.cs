@@ -1,4 +1,4 @@
-﻿using DataManagement.Domain.Abstractions;
+﻿using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
@@ -7,7 +7,7 @@ using DataManagement.Domain.Errors;
 
 namespace DataManagement.Application.Services
 {
-	public class IndustryService : IIndustryService
+    internal class IndustryService : IIndustryService
 	{
 		private readonly IDBContext _dbContext;
 

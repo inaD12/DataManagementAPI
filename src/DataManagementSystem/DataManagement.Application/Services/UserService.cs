@@ -1,6 +1,6 @@
-﻿using DataManagement.Application.Auth.PasswordManager;
+﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
-using DataManagement.Domain.Abstractions;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
@@ -10,7 +10,7 @@ using DataManagement.Domain.Errors;
 
 namespace DataManagement.Application.Services
 {
-	internal class UserService : IUserService
+    internal class UserService : IUserService
 	{
 		private readonly IDBContext _dBContext;
 		private readonly IPasswordManager _passwordManager;

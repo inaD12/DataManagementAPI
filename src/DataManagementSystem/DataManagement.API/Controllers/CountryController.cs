@@ -1,7 +1,6 @@
 ﻿using DataManagement.API.Extensions;
 using DataManagement.Application.Services;
 using DataManagement.Domain.Abstractions.Result;
-using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using Microsoft.AspNetCore.Authorization;

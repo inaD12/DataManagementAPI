@@ -1,11 +1,11 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions;
+using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.Entities;
 using Serilog;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal class IndustryRepository : Repository<Industry> , IIndustryRepository
+    internal class IndustryRepository : Repository<Industry> , IIndustryRepository
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		public IndustryRepository(ISqlConnectionFactory connectionFactory, IRepositoryHelper repositoryHelper)

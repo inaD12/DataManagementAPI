@@ -1,12 +1,13 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions;
+using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities.Base;
 using Serilog;
 using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : IBaseEntity
+    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : IBaseEntity
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		private readonly IRepositoryHelper _repositoryHelper;
@@ -33,6 +34,27 @@ namespace DataManagement.Infrastructure.Repositories
 			{
 				Log.Error($"Error in Repository, GetByNameAsync: {ex.Message}");
 				return default;
+			}
+		}
+
+		public async Task<Dictionary<string, string>> GetAllNamesAndIdsAsync()
+		{
+			try
+			{
+				await using (var connection = _connectionFactory.CreateConnection())
+				{
+					string query = $"SELECT Id, Name FROM [{_tableName}] WHERE DeletedAt IS NULL";
+					var result = await connection.QueryAsync<NameAndID>(query);
+
+					var dictionary = result.ToDictionary(nameAndId => nameAndId.Name, nameAndId => nameAndId.Id);
+
+					return dictionary;
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error($"Error in Repository, GetAllNamesAndIdsAsync: {ex.Message}");
+				return new Dictionary<string, string>();
 			}
 		}
 

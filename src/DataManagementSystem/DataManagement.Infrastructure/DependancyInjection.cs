@@ -1,5 +1,4 @@
-﻿using DataManagement.Application.Abstractions;
-using DataManagement.Domain.Abstractions;
+﻿using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Infrastructure.Data;
 using DataManagement.Infrastructure.DBContexts;
 using DataManagement.Infrastructure.Repositories;
@@ -7,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DataManagement.Infrastructure
 {
-	public static class DependancyInjection
+    public static class DependancyInjection
 	{
 		public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
 		{

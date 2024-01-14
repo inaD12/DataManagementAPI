@@ -2,6 +2,6 @@
 {
 	public interface IAccountInitializer
 	{
-		void TryCreate();
+		Task TryCreate();
 	}
 }

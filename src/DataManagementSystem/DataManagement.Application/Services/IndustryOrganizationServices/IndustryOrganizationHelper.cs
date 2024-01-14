@@ -1,11 +1,11 @@
 ﻿using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities;
-using DataManagement.Domain.Abstractions;
+using DataManagement.Application.Abstractions.Interfaces;
 
 namespace DataManagement.Application.Services.IndustryOrganizationServices
 {
-	internal class IndustryOrganizationHelper : IIndustryOrganizationHelper
+    internal class IndustryOrganizationHelper : IIndustryOrganizationHelper
 	{
 		private readonly IDBContext _dbContext;
 		public IndustryOrganizationHelper(IDBContext dBContext)

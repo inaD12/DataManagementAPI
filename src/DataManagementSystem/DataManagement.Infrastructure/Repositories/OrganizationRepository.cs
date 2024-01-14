@@ -1,12 +1,12 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions;
+using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.Entities;
 using Serilog;
 using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal class OrganizationRepository : Repository<Organization>, IOrganizationRepository
+    internal class OrganizationRepository : Repository<Organization>, IOrganizationRepository
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		public OrganizationRepository(ISqlConnectionFactory connectionFactory, IRepositoryHelper repositoryHelper)

@@ -1,4 +1,5 @@
-﻿using DataManagement.Domain.DBTableProperties;
+﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Domain.DBTableProperties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-	internal class RepositoryHelper : IRepositoryHelper
+    internal class RepositoryHelper : IRepositoryHelper
 	{
 		public string GetColumnsForTable(string _tableName)
 		{

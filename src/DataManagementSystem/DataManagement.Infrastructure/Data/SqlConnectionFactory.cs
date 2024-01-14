@@ -1,10 +1,10 @@
-﻿using DataManagement.Application.Abstractions;
+﻿using DataManagement.Application.Abstractions.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace DataManagement.Infrastructure.Data
 {
-	public class SqlConnectionFactory : ISqlConnectionFactory
+    public class SqlConnectionFactory : ISqlConnectionFactory
 	{
 		private readonly IConfiguration _configuration;
 
@@ -20,6 +20,18 @@ namespace DataManagement.Infrastructure.Data
 			if (string.IsNullOrEmpty(connectionString))
 			{
 				throw new InvalidOperationException("Database connection string not found in appsettings.json");
+			}
+
+			return new SqlConnection(connectionString);
+		}
+
+		public SqlConnection CreateMasterConnection()
+		{
+			string connectionString = _configuration.GetConnectionString("MasterDB");
+
+			if (string.IsNullOrEmpty(connectionString))
+			{
+				throw new InvalidOperationException("Master database connection string not found in appsettings.json");
 			}
 
 			return new SqlConnection(connectionString);

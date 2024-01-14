@@ -1,4 +1,4 @@
-﻿using DataManagement.Domain.Abstractions;
+﻿using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.DTOs.Stats;
@@ -6,7 +6,7 @@ using DataManagement.Domain.Errors;
 
 namespace DataManagement.Application.Services
 {
-	internal class StatsService : IStatsService
+    internal class StatsService : IStatsService
 	{
 		private readonly IDBContext _dbContext;
 
