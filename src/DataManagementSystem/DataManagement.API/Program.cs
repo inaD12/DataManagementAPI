@@ -49,6 +49,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
+app.UseMiddleware<DataCaptureMiddleware>();
 
 app.MapControllers();
 
