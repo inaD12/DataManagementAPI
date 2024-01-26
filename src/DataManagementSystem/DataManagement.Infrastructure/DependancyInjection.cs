@@ -19,6 +19,7 @@ namespace DataManagement.Infrastructure
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IStatsRepository, StatsRepository>();
 			services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+			services.AddTransient<IFullDataRepository, FullDataRepository>();
 			services.AddTransient<IDBContext, DBContext>();
 
 

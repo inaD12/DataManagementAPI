@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Security.Claims;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 namespace DataManagement.API.Extensions
@@ -37,7 +37,7 @@ namespace DataManagement.API.Extensions
 
 		public static IServiceCollection ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
 		{
-			services.Configure<JwtOptionsConfiguration>	
+			services.Configure<JwtOptionsConfiguration>
 				(configuration.GetSection("Jwtoptions"));
 
 
@@ -71,6 +71,9 @@ namespace DataManagement.API.Extensions
 						Type = ReferenceType.SecurityScheme
 					}
 				};
+
+				options.OperationFilter<FileOperation>();
+
 				options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
 				options.AddSecurityRequirement(new OpenApiSecurityRequirement
 			{
@@ -89,6 +92,19 @@ namespace DataManagement.API.Extensions
 			});
 
 			return services;
+		}
+	}
+	public class FileOperation : IOperationFilter
+	{
+		public void Apply(OpenApiOperation operation, OperationFilterContext context)
+		{
+			if (context.MethodInfo.Name == "GeneratePdf")
+			{
+				operation.Responses["200"].Content["application/pdf"] = new OpenApiMediaType
+				{
+					Schema = new OpenApiSchema { Type = "string", Format = "binary" }
+				};
+			}
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
 using DataManagement.Application.Initializers;
+using DataManagement.Application.PDF;
 using DataManagement.Application.Services;
 using DataManagement.Application.Services.FileServices;
 using DataManagement.Application.Services.FileServices.Data;
@@ -28,6 +29,8 @@ namespace DataManagement.Application
 			services.AddTransient<INormalizer, Normalizer>();
 			services.AddTransient<IInserter, Inserter>();
 			services.AddTransient<IEntityFactory, EntityFactory>();
+			services.AddTransient<IPDFDataRetriever, PDFDataRetriever>();
+			services.AddTransient<IPDFGenerator, PDFGenerator>();
 			services.AddTransient<IDBCreator, DBCreator>();
 			services.AddSingleton<ITableCreator, TableCreator>();
 

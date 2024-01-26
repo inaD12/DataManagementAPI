@@ -21,7 +21,6 @@ namespace DataManagement.API.Middlewares
 				WriteDataToJsonFile(requestData);
 			}
 
-			// Call the next middleware in the pipeline
 			await _next(context);
 		}
 

@@ -13,6 +13,7 @@ namespace DataManagement.Infrastructure.DBContexts
 		private IStatsRepository statsRepository;
 		private IUserRepository userRepository;
 		private IUserRoleRepository userRoleRepository;
+		private IFullDataRepository fullDataRepository;
 
 		public DBContext(IRepositoryFactory repositoryFactory)
 		{
@@ -33,6 +34,8 @@ namespace DataManagement.Infrastructure.DBContexts
 			=> userRepository ??= _repositoryFactory.CreateUserRepository();
 		public IUserRoleRepository UserRole
 			=> userRoleRepository ??= _repositoryFactory.CreateUserRoleRepository();
+		public IFullDataRepository FullData
+			=> fullDataRepository ??= _repositoryFactory.CreateFullDataRepository();
 
 
 	}

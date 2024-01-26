@@ -9,5 +9,7 @@
         IUserRepository CreateUserRepository();
         IStatsRepository CreateStatsRepository();
         IUserRoleRepository CreateUserRoleRepository();
-    }
+        IFullDataRepository CreateFullDataRepository();
+
+	}
 }

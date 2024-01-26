@@ -9,5 +9,7 @@
         IStatsRepository Stats { get; }
         IUserRepository User { get; }
         IUserRoleRepository UserRole { get; }
-    }
+		IFullDataRepository FullData { get; }
+
+	}
 }

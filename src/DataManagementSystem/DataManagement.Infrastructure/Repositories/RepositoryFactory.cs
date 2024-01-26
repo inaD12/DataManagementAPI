@@ -47,5 +47,10 @@ namespace DataManagement.Infrastructure.Repositories
 		{
 			return new UserRoleRepository(_connectionFactory, _repositoryHelper);
 		}
+
+		public IFullDataRepository CreateFullDataRepository()
+		{
+			return new FullDataRepository(_connectionFactory);
+		}
 	}
 }
