@@ -19,7 +19,7 @@ namespace DataManagement.API.BackgoundServices
 		{
 			await _dbCreator.CreateDatabaseIfNotExists();
 			await _tableCreator.CreateTablesIfNotExist();
-			_accountInitializer.TryCreate();
+			await _accountInitializer.TryCreate();
 
 			return Task.CompletedTask;
 		}

@@ -2,7 +2,6 @@ using DataManagement.API.BackgoundServices;
 using DataManagement.API.Extensions;
 using DataManagement.API.Middlewares;
 using DataManagement.Application;
-using DataManagement.Application.Settings.Options;
 using DataManagement.Domain;
 using DataManagement.Infrastructure;
 using Serilog;

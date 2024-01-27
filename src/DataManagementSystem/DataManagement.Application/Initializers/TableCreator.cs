@@ -28,7 +28,7 @@ namespace DataManagement.Application.Initializers
 							Console.WriteLine($"Table '{kvp.Key}' created.");
 						}
 					}
-					Thread.Sleep( 1000 );
+					//Thread.Sleep( 1000 );
 					connection.Close();
 				}
 			}
