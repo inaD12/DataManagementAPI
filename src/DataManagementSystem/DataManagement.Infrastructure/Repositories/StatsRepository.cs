@@ -71,7 +71,7 @@ namespace DataManagement.Infrastructure.Repositories
 			}
 		}
 
-		public async Task<string> GetTotalWorkerCount()
+		public async Task<string?> GetTotalWorkerCount()
 		{
 			try
 			{
@@ -90,7 +90,7 @@ namespace DataManagement.Infrastructure.Repositories
 			catch (Exception ex)
 			{
 				Log.Error($"Error in StatisticsRepository, GetTotalWorkerCount: {ex.Message}");
-				return string.Empty;
+				return null;
 			}
 		}
 	}

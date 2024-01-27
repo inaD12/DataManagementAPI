@@ -1,4 +1,5 @@
 ﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Helpers;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.DTOs.Stats;
@@ -6,59 +7,68 @@ using DataManagement.Domain.Errors;
 
 namespace DataManagement.Application.Services
 {
-    internal class StatsService : IStatsService
+	internal class StatsService : IStatsService
 	{
 		private readonly IDBContext _dbContext;
+		private readonly ICacheHelper _cacheHelper;
 
-		public StatsService(IDBContext dBContext)
+		public StatsService(IDBContext dbContext, ICacheHelper cacheHelper)
 		{
-			_dbContext = dBContext;
+			_dbContext = dbContext;
+			_cacheHelper = cacheHelper;
 		}
 
 		public async Task<ResponseDTO> GetTopTenOrganizationsWithMostWorkers()
 		{
-			ICollection<OrganizationStatistics>? res = await _dbContext.Stats.GetTopTenOrganizationsWithMostWorkers();
-
-			if (res is null)
-			{
-				return new ResponseDTO(StatsErrors.NotFound);
-			}
-
-			if (res.Count == 0)
-			{
-				return new ResponseDTO(StatsErrors.MissingData);
-			}
-
-			return new ResponseDTO(Result.Success(), res);
+			return await GetFromCacheOrServiceAsync<ICollection<OrganizationStatistics>>(
+				cacheKey: "TopTenOrganizationsWithMostWorkers",
+				serviceMethod: _dbContext.Stats.GetTopTenOrganizationsWithMostWorkers
+			);
 		}
 
 		public async Task<ResponseDTO> GetWorkerCountByIndustries()
 		{
-			ICollection<IndustryCountStatistics>? res = await _dbContext.Stats.GetWorkerCountByIndustries();
-
-			if (res is null)
-			{
-				return new ResponseDTO(StatsErrors.NotFound);
-			}
-
-			if (res.Count == 0)
-			{
-				return new ResponseDTO(StatsErrors.MissingData);
-			}
-
-			return new ResponseDTO(Result.Success(), res);
+			return await GetFromCacheOrServiceAsync<ICollection<IndustryCountStatistics>>(
+				cacheKey: "WorkerCountByIndustries",
+				serviceMethod: _dbContext.Stats.GetWorkerCountByIndustries
+			);
 		}
 
 		public async Task<ResponseDTO> GetTotalWorkerCount()
 		{
-			var res = await _dbContext.Stats.GetTotalWorkerCount();
+			return await GetFromCacheOrServiceAsync<string>(
+				cacheKey: "TotalWorkerCount",
+				serviceMethod: _dbContext.Stats.GetTotalWorkerCount
+			);
+		}
 
-			if (res is null)
+		private async Task<ResponseDTO> GetFromCacheOrServiceAsync<T>(string cacheKey, Func<Task<T>> serviceMethod)
+		{
+			T? cachedData = _cacheHelper.Get<T>(cacheKey);
+
+			if (cachedData != null)
+			{
+				return new ResponseDTO(Result.Success(), cachedData);
+			}
+
+			T? result = await serviceMethod();
+
+			if (result == null)
 			{
 				return new ResponseDTO(StatsErrors.NotFound);
 			}
+			if (typeof(T) != typeof(string))
+			{
+				dynamic collection = result;
+				if (collection.Count == 0)
+				{
+					return new ResponseDTO(StatsErrors.MissingData);
+				}
+			}
 
-			return new ResponseDTO(Result.Success(), res);
+			_cacheHelper.Set(cacheKey, result, AbsoluteExpInM: 5, SlidingExpInM: 2);
+
+			return new ResponseDTO(Result.Success(), result);
 		}
 	}
 }

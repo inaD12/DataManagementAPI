@@ -1,6 +1,7 @@
 ﻿using DataManagement.Application.Abstractions;
 using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
+using DataManagement.Application.Helpers;
 using DataManagement.Application.Initializers;
 using DataManagement.Application.PDF;
 using DataManagement.Application.Services;
@@ -33,6 +34,7 @@ namespace DataManagement.Application
 			services.AddTransient<IPDFGenerator, PDFGenerator>();
 			services.AddTransient<IDBCreator, DBCreator>();
 			services.AddSingleton<ITableCreator, TableCreator>();
+			services.AddTransient<ICacheHelper, CacheHelper>();
 
 			return services;
 		}

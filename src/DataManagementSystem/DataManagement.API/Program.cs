@@ -23,6 +23,7 @@ builder.Services.AddHostedService<StartupService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
 
+builder.Services.AddMemoryCache();
 
 builder.Services
 	.AddDomainLayer()
