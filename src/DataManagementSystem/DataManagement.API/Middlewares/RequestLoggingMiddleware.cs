@@ -43,12 +43,13 @@ namespace DataManagement.API.Middlewares
 
 				await _next(context);
 
+
 				responseBodyStream.Seek(0, SeekOrigin.Begin);
 				using (var reader = new StreamReader(responseBodyStream))
 				{
 					Log.Information("Incoming Response:");
 					var responseBody = await reader.ReadToEndAsync();
-					if (responseBody.Length > 0)
+					if (responseBody.Length > 0 && !context.Request.Path.StartsWithSegments("/api/Pdf/GeneratePdf", StringComparison.OrdinalIgnoreCase))
 					{
 						Log.Information("Response Body: {ResponseBody}", responseBody);
 					}

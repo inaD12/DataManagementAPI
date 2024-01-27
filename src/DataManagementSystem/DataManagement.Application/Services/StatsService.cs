@@ -4,6 +4,7 @@ using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.DTOs.Stats;
 using DataManagement.Domain.Errors;
+using Serilog;
 
 namespace DataManagement.Application.Services
 {
@@ -44,31 +45,39 @@ namespace DataManagement.Application.Services
 
 		private async Task<ResponseDTO> GetFromCacheOrServiceAsync<T>(string cacheKey, Func<Task<T>> serviceMethod)
 		{
-			T? cachedData = _cacheHelper.Get<T>(cacheKey);
-
-			if (cachedData != null)
+			try
 			{
-				return new ResponseDTO(Result.Success(), cachedData);
-			}
+				T? cachedData = _cacheHelper.Get<T>(cacheKey);
 
-			T? result = await serviceMethod();
-
-			if (result == null)
-			{
-				return new ResponseDTO(StatsErrors.NotFound);
-			}
-			if (typeof(T) != typeof(string))
-			{
-				dynamic collection = result;
-				if (collection.Count == 0)
+				if (cachedData != null)
 				{
-					return new ResponseDTO(StatsErrors.MissingData);
+					return new ResponseDTO(Result.Success(), cachedData);
 				}
+
+				T? result = await serviceMethod();
+
+				if (result == null)
+				{
+					return new ResponseDTO(StatsErrors.NotFound);
+				}
+				if (typeof(T) != typeof(string))
+				{
+					dynamic collection = result;
+					if (collection.Count == 0)
+					{
+						return new ResponseDTO(StatsErrors.MissingData);
+					}
+				}
+
+				_cacheHelper.Set(cacheKey, result, AbsoluteExpInM: 5, SlidingExpInM: 2);
+
+				return new ResponseDTO(Result.Success(), result);
 			}
-
-			_cacheHelper.Set(cacheKey, result, AbsoluteExpInM: 5, SlidingExpInM: 2);
-
-			return new ResponseDTO(Result.Success(), result);
+			catch (Exception ex)
+			{
+				Log.Error($"Error in StatsService, GetFromCacheOrServiceAsync: { ex.Message}");
+				return new ResponseDTO(StatsErrors.Error);
+			}
 		}
 	}
 }
