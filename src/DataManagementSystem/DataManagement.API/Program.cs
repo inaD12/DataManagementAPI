@@ -49,6 +49,8 @@ app.UseAuthorization();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseMiddleware<DataCaptureMiddleware>();
+app.UseMiddleware<CustomHeaderMiddleware>();
+app.UseMiddleware<IpFilterMiddleware>();
 
 app.MapControllers();
 
