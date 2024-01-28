@@ -3,11 +3,35 @@ using System.Text;
 
 class Program
 {
+	private static string apiUrl = "https://localhost:7174/api/Data/CSVData";
+	private static string inputFolder = "..\\..\\..\\InputFolder";
+	private static string outputFolder = "..\\..\\..\\OutputFolder";
+
 	static async Task Main(string[] args)
 	{
-		string apiUrl = "https://localhost:7174/api/Data/CSVData";
-		string csvFilePath = "C:\\Users\\Capit\\OneDrive\\Работен плот\\organizations-100.csv";
+		using (FileSystemWatcher watcher = new FileSystemWatcher(inputFolder))
+		{
+			watcher.Filter = "*.csv";
+			watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
 
+			watcher.Created += async (sender, e) =>
+			{
+				Console.WriteLine($"File {e.Name} created. Processing...");
+
+				await ProcessCsvFile(e.FullPath);
+
+				Console.WriteLine($"File {e.Name} processed and moved to output folder.");
+			};
+
+			watcher.EnableRaisingEvents = true;
+
+			Console.WriteLine("Press Enter to exit.");
+			Console.ReadLine();
+		}
+	}
+
+	static async Task ProcessCsvFile(string csvFilePath)
+	{
 		try
 		{
 			string csvData = File.ReadAllText(csvFilePath);
@@ -16,11 +40,14 @@ class Program
 
 			await SendDataToApi(apiUrl, jsonData);
 
-			Console.WriteLine("Data sent successfully.");
+			string outputFilePath = Path.Combine(outputFolder, Path.GetFileName(csvFilePath));
+			File.Move(csvFilePath, outputFilePath);
+
+			Console.WriteLine($"Data sent successfully. Moved {csvFilePath} to {outputFilePath}");
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine($"Error: {ex.Message}");
+			Console.WriteLine($"Error processing file {csvFilePath}: {ex.Message}");
 		}
 	}
 

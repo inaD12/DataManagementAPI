@@ -43,7 +43,6 @@ namespace DataManagement.API.Middlewares
 
 				await _next(context);
 
-
 				responseBodyStream.Seek(0, SeekOrigin.Begin);
 				using (var reader = new StreamReader(responseBodyStream))
 				{
