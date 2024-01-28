@@ -1,11 +1,11 @@
 ﻿using DataManagement.API.Extensions;
-using DataManagement.Application.Services;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class StatsController : Controller
 	{

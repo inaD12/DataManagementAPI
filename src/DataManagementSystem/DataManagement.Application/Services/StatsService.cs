@@ -1,14 +1,15 @@
 ﻿using DataManagement.Application.Abstractions.Interfaces;
-using DataManagement.Application.Helpers;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.DTOs.Stats;
 using DataManagement.Domain.Errors;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Serilog;
 
 namespace DataManagement.Application.Services
 {
-	internal class StatsService : IStatsService
+    internal class StatsService : IStatsService
 	{
 		private readonly IDBContext _dbContext;
 		private readonly ICacheHelper _cacheHelper;

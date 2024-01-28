@@ -1,6 +1,4 @@
-﻿using DataManagement.Domain.Abstractions.Result;
-
-namespace DataManagement.Domain.Abstractions.Result
+﻿namespace DataManagement.Domain.Abstractions.Result
 {
 	public class Result
 	{

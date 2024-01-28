@@ -1,10 +1,10 @@
 ﻿using DataManagement.Application.Abstractions;
-using DataManagement.Application.Services.FileServices.Data;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.DTOs;
 
 namespace DataManagement.Application.Services.FileServices
 {
-	internal class FileService : IFileService
+    internal class FileService : IFileService
 	{
 		private readonly INormalizer _normalizer;
 		private readonly IInserter _inserter;

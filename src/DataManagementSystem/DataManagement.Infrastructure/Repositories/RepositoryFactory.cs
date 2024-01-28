@@ -1,8 +1,8 @@
-﻿using DataManagement.Application.Abstractions.Interfaces;
+﻿using DataManagement.Domain.InfrastructureInterfaces;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-    internal class RepositoryFactory : IRepositoryFactory
+	internal class RepositoryFactory : IRepositoryFactory
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		private readonly IRepositoryHelper _repositoryHelper;

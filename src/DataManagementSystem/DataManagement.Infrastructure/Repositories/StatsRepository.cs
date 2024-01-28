@@ -1,11 +1,11 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.DTOs.Stats;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Serilog;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-    internal class StatsRepository : IStatsRepository
+	internal class StatsRepository : IStatsRepository
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 

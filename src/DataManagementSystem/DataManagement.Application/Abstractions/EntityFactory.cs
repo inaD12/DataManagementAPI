@@ -1,9 +1,10 @@
-﻿using DataManagement.Domain.DTOs;
+﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities;
 
 namespace DataManagement.Application.Abstractions
 {
-	public class EntityFactory : IEntityFactory
+    public class EntityFactory : IEntityFactory
 	{
 		public Country CreateCountry(string countryName)
 		{

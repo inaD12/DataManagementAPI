@@ -1,12 +1,12 @@
 ﻿using DataManagement.Application.Abstractions.Interfaces;
-using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Domain.Entities;
+using DataManagement.Domain.InfrastructureInterfaces;
 using DataManagement.Domain.Roles;
 using Serilog;
 
 namespace DataManagement.Application.Initializers
 {
-	internal class AccountInitializer : IAccountInitializer
+    internal class AccountInitializer : IAccountInitializer
 	{
 		private readonly IDBContext _dbContext;
 		private readonly IPasswordManager _passwordManager;
@@ -64,7 +64,7 @@ namespace DataManagement.Application.Initializers
 
 					userRole.Set();
 
-					_dbContext.UserRole.CreateAsync(userRole);
+					await _dbContext.UserRole.CreateAsync(userRole);
 				}
 			}
 			catch (Exception ex)

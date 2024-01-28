@@ -1,12 +1,13 @@
 ﻿using DataManagement.Application.Abstractions.Interfaces;
-using DataManagement.Application.Auth.PasswordManager;
-using DataManagement.Application.Auth.TokenManager;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Errors;
+using DataManagement.Domain.InfrastructureInterfaces;
+using DataManagement.Domain.Roles;
 
 namespace DataManagement.Application.Services
 {
@@ -59,13 +60,16 @@ namespace DataManagement.Application.Services
 				return UserErrors.UserNameAlreadyExists;
 			}
 
+			string UserRoleID = _dBContext.UserRole.GetByNameAsync(Roles.User).Result.Id;
+
 			User newUser = new()
 			{
 				FirstName = registerDTO.FirstName,
 				LastName = registerDTO.LastName,
 				Name = registerDTO.Username,
 				PasswordHash = _passwordManager.HashPassword(registerDTO.Password, out string salt),
-				Salt = salt
+				Salt = salt,
+				UserRoleId = UserRoleID
 			};
 
 			newUser.Set();

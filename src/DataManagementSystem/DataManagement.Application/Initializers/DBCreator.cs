@@ -1,9 +1,10 @@
 ﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Microsoft.Data.SqlClient;
 
 namespace DataManagement.Application.Initializers
 {
-	public class DBCreator : IDBCreator
+    public class DBCreator : IDBCreator
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 

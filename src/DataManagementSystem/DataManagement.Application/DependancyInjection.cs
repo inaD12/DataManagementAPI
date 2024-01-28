@@ -1,4 +1,6 @@
 ﻿using DataManagement.Application.Abstractions;
+using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Application.Auth.PasswordManager;
 using DataManagement.Application.Auth.TokenManager;
 using DataManagement.Application.Helpers;
@@ -12,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DataManagement.Application
 {
-	public static class DependancyInjection
+    public static class DependancyInjection
 	{
 		public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
 		{
@@ -35,6 +37,7 @@ namespace DataManagement.Application
 			services.AddTransient<IDBCreator, DBCreator>();
 			services.AddSingleton<ITableCreator, TableCreator>();
 			services.AddTransient<ICacheHelper, CacheHelper>();
+			services.AddTransient<IJWTParser, JWTParser>();
 
 			return services;
 		}

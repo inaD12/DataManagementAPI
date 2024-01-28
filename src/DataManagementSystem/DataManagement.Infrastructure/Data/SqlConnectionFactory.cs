@@ -1,10 +1,10 @@
-﻿using DataManagement.Application.Abstractions.Interfaces;
+﻿using DataManagement.Domain.InfrastructureInterfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace DataManagement.Infrastructure.Data
 {
-    public class SqlConnectionFactory : ISqlConnectionFactory
+	public class SqlConnectionFactory : ISqlConnectionFactory
 	{
 		private readonly IConfiguration _configuration;
 

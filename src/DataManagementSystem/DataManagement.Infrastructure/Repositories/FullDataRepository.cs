@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.DTOs;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Serilog;
 
 namespace DataManagement.Infrastructure.Repositories
@@ -29,7 +29,7 @@ namespace DataManagement.Infrastructure.Repositories
                       LEFT JOIN Industry i ON io.IndustryId = i.Id
                       WHERE o.Name = @OrganizationName";
 
-					var organizationData = await connection.QuerySingleOrDefaultAsync<FileData>(query, new { OrganizationName = organizationName });
+					var organizationData = await connection.QueryFirstOrDefaultAsync<FileData>(query, new { OrganizationName = organizationName });
 
 					return organizationData;
 				}

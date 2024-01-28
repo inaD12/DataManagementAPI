@@ -1,8 +1,8 @@
-﻿using DataManagement.Application.Initializers;
+﻿using DataManagement.Application.Abstractions.Interfaces;
 
 namespace DataManagement.API.BackgoundServices
 {
-	public class StartupService : BackgroundService
+    public class StartupService : BackgroundService
 	{
 		private readonly IAccountInitializer _accountInitializer;
 		private readonly ITableCreator _tableCreator;

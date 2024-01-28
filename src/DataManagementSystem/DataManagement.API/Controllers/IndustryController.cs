@@ -1,5 +1,5 @@
 ﻿using DataManagement.API.Extensions;
-using DataManagement.Application.Services;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class IndustryController : Controller
 	{
@@ -32,6 +32,7 @@ namespace DataManagement.API.Controllers
 			return Ok(response.obj);
 		}
 
+		[Authorize]
 		[HttpPost("CreateIndustry")]
 		public async Task<IActionResult> CreateIndustry(CreateIndustryRequestDTO dto)
 		{
@@ -45,6 +46,7 @@ namespace DataManagement.API.Controllers
 			return Created($"/api/Industry/{dto.Name}", dto);
 		}
 
+		[Authorize]
 		[HttpPut("UpdateIndustry/{industryname}")]
 		public async Task<IActionResult> UpdateIndustry([FromBody] UpdateIndustryRequestDTO dto, [FromRoute] string industryname)
 		{
@@ -69,7 +71,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(result);
 			}
 
-			return Ok(result.Error);
+			return Ok();
 		}
 	}
 }

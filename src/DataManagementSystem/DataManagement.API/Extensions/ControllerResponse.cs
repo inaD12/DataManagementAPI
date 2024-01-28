@@ -12,13 +12,13 @@ namespace DataManagement.API.Extensions
 			switch (responseType)
 			{
 				case ResponseType.NotFound:
-					return controller.NotFound(result.Error);
+					return controller.NotFound(result.Error.Description);
 				case ResponseType.Unauthorized:
-					return controller.Unauthorized(result.Error);
+					return controller.Unauthorized(result.Error.Description);
 				case ResponseType.Conflict:
-					return controller.Conflict(result.Error);
+					return controller.Conflict(result.Error.Description);
 				case ResponseType.BadRequest:	
-					return controller.BadRequest(result.Error);
+					return controller.BadRequest(result.Error.Description);
 				default:
 					return controller.Ok(result);
 			}

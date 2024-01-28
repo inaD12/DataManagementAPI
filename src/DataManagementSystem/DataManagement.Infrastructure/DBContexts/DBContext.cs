@@ -1,8 +1,8 @@
-﻿using DataManagement.Application.Abstractions.Interfaces;
+﻿using DataManagement.Domain.InfrastructureInterfaces;
 
 namespace DataManagement.Infrastructure.DBContexts
 {
-    internal class DBContext : IDBContext
+	internal class DBContext : IDBContext
 	{
 		private readonly IRepositoryFactory _repositoryFactory;
 

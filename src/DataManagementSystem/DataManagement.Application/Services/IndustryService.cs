@@ -1,13 +1,14 @@
-﻿using DataManagement.Application.Abstractions.Interfaces;
+﻿using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Errors;
+using DataManagement.Domain.InfrastructureInterfaces;
 
 namespace DataManagement.Application.Services
 {
-    internal class IndustryService : IIndustryService
+	internal class IndustryService : IIndustryService
 	{
 		private readonly IDBContext _dbContext;
 
@@ -29,7 +30,7 @@ namespace DataManagement.Application.Services
 				return new ResponseDTO(result);
 			}
 
-			GetIndustryResponseDTO dto = new GetIndustryResponseDTO(res.Id, res.Name, (DateTime)res.CreatedAt);
+			GetIndustryResponseDTO dto = new GetIndustryResponseDTO(res.Name, (DateTime)res.CreatedAt);
 
 			return new ResponseDTO(result, dto);
 		}

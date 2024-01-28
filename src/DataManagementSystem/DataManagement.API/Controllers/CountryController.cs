@@ -1,5 +1,5 @@
 ﻿using DataManagement.API.Extensions;
-using DataManagement.Application.Services;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class CountryController : Controller
 	{
@@ -32,6 +32,7 @@ namespace DataManagement.API.Controllers
 			return Ok(response.obj);
 		}
 
+		[Authorize]
 		[HttpPost("CreateCountry")]
 		public async Task<IActionResult> CreateCountry(CreateCountryRequestDTO dto)
 		{
@@ -45,6 +46,7 @@ namespace DataManagement.API.Controllers
 			return Created($"/api/Country/{dto.Name}", dto);
 		}
 
+		[Authorize]
 		[HttpPut("UpdateCountry/{countryname}")]
 		public async Task<IActionResult> UpdateCountry([FromBody] UpdateCountryRequestDTO dto, [FromRoute] string countryname)
 		{
@@ -69,7 +71,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(result);
 			}
 
-			return Ok(result.Error);
+			return Ok();
 		}
 	}
 }

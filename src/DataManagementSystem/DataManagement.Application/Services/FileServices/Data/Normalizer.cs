@@ -1,10 +1,12 @@
 ﻿using DataManagement.Application.Abstractions;
 using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.DTOs;
+using DataManagement.Domain.InfrastructureInterfaces;
 
 namespace DataManagement.Application.Services.FileServices.Data
 {
-	internal class Normalizer : INormalizer
+    internal class Normalizer : INormalizer
 	{
 		private readonly IDBContext _context;
 		private readonly IEntityFactory _entityFactory;
@@ -41,10 +43,6 @@ namespace DataManagement.Application.Services.FileServices.Data
 			DBCountries = await _context.Country.GetAllNamesAndIdsAsync();
 			DBOrganizations = await _context.Organization.GetAllNamesAndIdsAsync();
 			DBIndustries = await _context.Industry.GetAllNamesAndIdsAsync();
-
-			//DBCountries = new Dictionary<string, string>();
-			//DBOrganizations = new Dictionary<string, string>();
-			//DBIndustries = new Dictionary<string, string>();
 		}
 
 		private List<string> SplitIndustries(string Industry)

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DataManagement.Application.PDF;
 using DataManagement.API.Extensions;
+using DataManagement.Application.Abstractions.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataManagement.API.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("api/[controller]")]
 	public class PdfController : ControllerBase
 	{
@@ -15,6 +16,7 @@ namespace DataManagement.API.Controllers
 			_pdfGenerator = pdfGenerator;
 		}
 
+		[Authorize]
 		[HttpGet("GeneratePdf/{organizationName}")]
 		[Produces("application/pdf")]
 		public async Task<IActionResult> GeneratePdf(string organizationName)

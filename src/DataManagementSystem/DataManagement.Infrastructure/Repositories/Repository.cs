@@ -1,13 +1,13 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities.Base;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Serilog;
 using static Dapper.SqlMapper;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : IBaseEntity
+	internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : IBaseEntity
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		private readonly IRepositoryHelper _repositoryHelper;
@@ -27,7 +27,7 @@ namespace DataManagement.Infrastructure.Repositories
 				await using (var connection = _connectionFactory.CreateConnection())
 				{
 					string query = $"SELECT * FROM [{_tableName}] WHERE DeletedAt IS NULL AND Name = @Name";
-					return await connection.QuerySingleOrDefaultAsync<TEntity>(query, new { Name });
+					return await connection.QueryFirstOrDefaultAsync<TEntity>(query, new { Name });
 				}
 			}
 			catch (Exception ex)
@@ -65,7 +65,7 @@ namespace DataManagement.Infrastructure.Repositories
 				await using (var connection = _connectionFactory.CreateConnection())
 				{
 					string query = $"SELECT * FROM [{_tableName}] WHERE DeletedAt IS NULL AND Id = @Id";
-					return await connection.QuerySingleOrDefaultAsync<TEntity>(query, new { Id });
+					return await connection.QueryFirstOrDefaultAsync<TEntity>(query, new { Id });
 				}
 			}
 			catch (Exception ex)

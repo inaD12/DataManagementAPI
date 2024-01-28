@@ -1,11 +1,11 @@
 ﻿using Dapper;
-using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.DTOs;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Serilog;
 
 namespace DataManagement.Infrastructure.Repositories
 {
-    internal class CountryRepository : Repository<Country>, ICountryRepository
+	internal class CountryRepository : Repository<Country>, ICountryRepository
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 		public CountryRepository(ISqlConnectionFactory connectionFactory, IRepositoryHelper repositoryHelper)

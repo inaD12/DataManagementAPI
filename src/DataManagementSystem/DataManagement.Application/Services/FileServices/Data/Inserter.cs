@@ -1,8 +1,9 @@
 ﻿using DataManagement.Application.Abstractions;
-using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.DBTableProperties;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.Entities;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Microsoft.Data.SqlClient;
 using Serilog;
 using System.Data;
@@ -69,7 +70,6 @@ namespace DataManagement.Application.Services.FileServices.Data
 		{
 			DataTable dataTable = new DataTable();
 
-			// Add columns based on the provided property list
 			foreach (string propertyName in propertyList)
 			{
 				PropertyInfo property = typeof(T).GetProperty(propertyName);
@@ -77,7 +77,6 @@ namespace DataManagement.Application.Services.FileServices.Data
 				dataTable.Columns.Add(propertyName, propertyType);
 			}
 
-			// Populate rows
 			foreach (T item in data)
 			{
 				DataRow row = dataTable.NewRow();

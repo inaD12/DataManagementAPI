@@ -1,5 +1,6 @@
 ﻿using DataManagement.API.Extensions;
-using DataManagement.Application.Services;
+using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
@@ -8,15 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;
+		private readonly IJWTParser _jwtParser;
 
-		public UserController(IUserService userService)
+		public UserController(IUserService userService, IJWTParser jWTParser)
 		{
 			_userService = userService;
+			_jwtParser = jWTParser;
 		}
 
 		[HttpPost]
@@ -47,10 +50,13 @@ namespace DataManagement.API.Controllers
 			return Ok(response.obj);
 		}
 
+		[Authorize]
 		[HttpGet]
-		[Route("UserInformation/{username}")]
-		public async Task<IActionResult> UserInformation(string username)
+		[Route("UserInformation")]
+		public async Task<IActionResult> UserInformation()
 		{
+			string username = _jwtParser.GetUsernameFromToken();
+
 			ResponseDTO response = await _userService.GetUserByNameAsync(username);
 
 			if (!response.Result.IsSuccess)
@@ -61,10 +67,13 @@ namespace DataManagement.API.Controllers
 			return Ok(response.obj);
 		}
 
+		[Authorize]
 		[HttpPut]
-		[Route("UpdateUser/{username}")]
-		public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO updateUserDTO, [FromRoute] string username)
+		[Route("UpdateUser")]
+		public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO updateUserDTO)
 		{
+			string username = _jwtParser.GetUsernameFromToken();
+
 			Result result = await _userService.UpdateUser(updateUserDTO, username);
 
 			if (!result.IsSuccess)
@@ -87,7 +96,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(result);
 			}
 
-			return Ok(result.Error);
+			return Ok();
 		}
 	}
 }

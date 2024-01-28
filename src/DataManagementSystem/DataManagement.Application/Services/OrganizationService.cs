@@ -1,14 +1,15 @@
-﻿using DataManagement.Application.Abstractions.Interfaces;
+﻿using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Request;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Entities;
 using DataManagement.Domain.Errors;
+using DataManagement.Domain.InfrastructureInterfaces;
 
 namespace DataManagement.Application.Services
 {
-    internal class OrganizationService : IOrganizationService
+	internal class OrganizationService : IOrganizationService
 	{
 		private readonly IDBContext _dBContext;
 

@@ -1,4 +1,5 @@
-﻿using DataManagement.Domain.Abstractions.Result;
+﻿using DataManagement.Application.Abstractions.Interfaces;
+using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using QuestPDF.Infrastructure;
 
 namespace DataManagement.Application.PDF
 {
-	public class PDFGenerator : IPDFGenerator
+    public class PDFGenerator : IPDFGenerator
 	{
 		private readonly IPDFDataRetriever _dataRetriever;
 

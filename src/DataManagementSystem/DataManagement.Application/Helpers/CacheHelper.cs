@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using DataManagement.Application.Abstractions.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 using Serilog;
 
 namespace DataManagement.Application.Helpers
 {
-	public class CacheHelper : ICacheHelper
+    public class CacheHelper : ICacheHelper
 	{
 		private readonly IMemoryCache _memoryCache;
 

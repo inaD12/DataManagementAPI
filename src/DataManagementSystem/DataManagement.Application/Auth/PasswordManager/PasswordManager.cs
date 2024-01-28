@@ -1,8 +1,9 @@
 ﻿using System.Security.Cryptography;
+using DataManagement.Application.Abstractions.Interfaces;
 
 namespace DataManagement.Application.Auth.PasswordManager
 {
-	public class PasswordManager : IPasswordManager
+    public class PasswordManager : IPasswordManager
 	{
 		private const int _keySize = 64;
 		private const int _iterations = 1000;

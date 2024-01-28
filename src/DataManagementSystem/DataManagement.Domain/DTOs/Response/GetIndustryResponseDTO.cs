@@ -1,4 +1,4 @@
 ﻿namespace DataManagement.Domain.DTOs.Response
 {
-	public record GetIndustryResponseDTO(string Id,string Name, DateTime CreatedAt);
+	public record GetIndustryResponseDTO(string Name, DateTime CreatedAt);
 }

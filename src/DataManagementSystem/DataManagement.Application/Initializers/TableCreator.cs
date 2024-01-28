@@ -1,10 +1,11 @@
 ﻿using DataManagement.Application.Abstractions.Interfaces;
 using DataManagement.Domain.DBTableProperties;
+using DataManagement.Domain.InfrastructureInterfaces;
 using Microsoft.Data.SqlClient;
 
 namespace DataManagement.Application.Initializers
 {
-	public class TableCreator : ITableCreator
+    public class TableCreator : ITableCreator
 	{
 		private readonly ISqlConnectionFactory _connectionFactory;
 
@@ -28,7 +29,6 @@ namespace DataManagement.Application.Initializers
 							Console.WriteLine($"Table '{kvp.Key}' created.");
 						}
 					}
-					//Thread.Sleep( 1000 );
 					connection.Close();
 				}
 			}

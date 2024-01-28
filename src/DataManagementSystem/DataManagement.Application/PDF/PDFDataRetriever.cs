@@ -3,10 +3,11 @@ using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs;
 using DataManagement.Domain.DTOs.Response;
 using DataManagement.Domain.Errors;
+using DataManagement.Domain.InfrastructureInterfaces;
 
 namespace DataManagement.Application.PDF
 {
-	internal class PDFDataRetriever : IPDFDataRetriever
+    internal class PDFDataRetriever : IPDFDataRetriever
 	{
 		private readonly IDBContext _dBContext;
 		public PDFDataRetriever(IDBContext dBContext)

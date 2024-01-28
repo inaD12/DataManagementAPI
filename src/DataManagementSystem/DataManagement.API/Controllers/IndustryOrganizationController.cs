@@ -1,5 +1,5 @@
 ﻿using DataManagement.API.Extensions;
-using DataManagement.Application.Services.IndustryOrganizationServices;
+using DataManagement.Application.Abstractions.Interfaces.Services;
 using DataManagement.Domain.Abstractions.Result;
 using DataManagement.Domain.DTOs.Request;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataManagement.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class IndustryOrganizationController : Controller
 	{
@@ -18,6 +18,7 @@ namespace DataManagement.API.Controllers
 			_service = service;
 		}
 
+		[Authorize]
 		[HttpPost("CreateIndustryOrganizationRelationship")]
 		public async Task<IActionResult> CreateIndustryOrganizationRelationship(IndustryOrganizationRequestDTO dto)
 		{
@@ -42,7 +43,7 @@ namespace DataManagement.API.Controllers
 				return this.ParseAndReturnMessage(result);
 			}
 
-			return Ok(result.Error);
+			return Ok();
 		}
 	}
 }
